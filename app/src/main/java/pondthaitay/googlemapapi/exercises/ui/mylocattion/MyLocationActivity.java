@@ -26,7 +26,7 @@ import permissions.dispatcher.RuntimePermissions;
 import pondthaitay.googlemapapi.exercises.ApplicationComponent;
 import pondthaitay.googlemapapi.exercises.R;
 import pondthaitay.googlemapapi.exercises.api.dao.NearbySearchDao;
-import pondthaitay.googlemapapi.exercises.ui.MainActivity;
+import pondthaitay.googlemapapi.exercises.ui.main.MainActivity;
 import pondthaitay.googlemapapi.exercises.ui.base.BaseActivity;
 import pondthaitay.googlemapapi.exercises.utils.DialogUtil;
 

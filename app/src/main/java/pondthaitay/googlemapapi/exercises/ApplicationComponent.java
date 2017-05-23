@@ -7,7 +7,7 @@ import pondthaitay.googlemapapi.exercises.module.AndroidModule;
 import pondthaitay.googlemapapi.exercises.module.ApiModule;
 import pondthaitay.googlemapapi.exercises.module.NetworkModule;
 import pondthaitay.googlemapapi.exercises.module.UtilModule;
-import pondthaitay.googlemapapi.exercises.ui.MainActivity;
+import pondthaitay.googlemapapi.exercises.ui.main.MainActivity;
 import pondthaitay.googlemapapi.exercises.ui.mylocattion.MyLocationActivity;
 
 @Singleton

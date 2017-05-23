@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import org.parceler.Parcel;
 
 @Parcel(Parcel.Serialization.BEAN)
-class GeometryDao {
+public class GeometryDao {
 
     @SerializedName("location")
     private ResultLocationDao location;

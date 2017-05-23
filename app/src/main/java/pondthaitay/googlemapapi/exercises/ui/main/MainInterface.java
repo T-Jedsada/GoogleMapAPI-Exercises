@@ -1,4 +1,4 @@
-package pondthaitay.googlemapapi.exercises.ui;
+package pondthaitay.googlemapapi.exercises.ui.main;
 
 import pondthaitay.googlemapapi.exercises.ui.base.BaseInterface;
 

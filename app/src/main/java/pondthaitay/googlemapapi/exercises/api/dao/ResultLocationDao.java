@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import org.parceler.Parcel;
 
 @Parcel(Parcel.Serialization.BEAN)
-class ResultLocationDao {
+public class ResultLocationDao {
 
     @SerializedName("lat")
     private double lat;

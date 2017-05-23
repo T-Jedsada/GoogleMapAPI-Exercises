@@ -1,22 +1,34 @@
-package pondthaitay.googlemapapi.exercises.ui;
+package pondthaitay.googlemapapi.exercises.ui.main;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
 
 import org.parceler.Parcels;
+
+import javax.inject.Inject;
 
 import pondthaitay.googlemapapi.exercises.ApplicationComponent;
 import pondthaitay.googlemapapi.exercises.R;
 import pondthaitay.googlemapapi.exercises.api.dao.NearbySearchDao;
+import pondthaitay.googlemapapi.exercises.api.dao.ResultNearbySearchDao;
 import pondthaitay.googlemapapi.exercises.ui.base.BaseActivity;
+import pondthaitay.googlemapapi.exercises.ui.main.adapter.ListPlaceAdapter;
 
-public class MainActivity extends BaseActivity<MainPresenter> implements MainInterface.View, OnMapReadyCallback {
+public class MainActivity extends BaseActivity<MainPresenter> implements
+        MainInterface.View, OnMapReadyCallback, ListPlaceAdapter.LisPlaceListener {
+
+    @Inject
+    SharedPreferences spf;
 
     private NearbySearchDao nearbySearchDao;
     private GoogleMap mGoogleMap;
+    private ListPlaceAdapter listPlaceAdapter;
 
     @Override
     protected int layoutToInflate() {
@@ -47,7 +59,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainInt
 
     @Override
     protected void setupInstance() {
-
+        listPlaceAdapter = new ListPlaceAdapter();
+        listPlaceAdapter.setData(nearbySearchDao, getLastKnownLocation());
+        listPlaceAdapter.setListener(this);
     }
 
     @Override
@@ -76,5 +90,12 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainInt
         mGoogleMap.setTrafficEnabled(true);
         enableMyLocationMap(mGoogleMap);
         moveCameraToMyLocation(mGoogleMap);
+    }
+
+    @Override
+    public void onPlaceItemClick(ResultNearbySearchDao dao) {
+        LatLng latLng = new LatLng(dao.getGeometryDao().getLocation().getLat(),
+                dao.getGeometryDao().getLocation().getLng());
+        mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16));
     }
 }
