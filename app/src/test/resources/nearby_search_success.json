@@ -1,0 +1,743 @@
+{
+  "html_attributions": [
+    "รายชื่อโดย: <a href=\"http://www.space-miner.com/\">Space Miner</a>",
+    "รายชื่อโดย: <a href=\"http://www.where-in-thailand.com/\">Where In Thailand</a>"
+  ],
+  "next_page_token": "CoQC-gAAACSH284WX9GZmoguiPCNAK03tA-aJW_34z-jOW4y2b3G0E77yTZ07NIGSTO4Ba2UQvWKAx8KxFvxx1akUL1xHGKzNgcDmtd8mM3UULaKeXXXkBEpCQ4R52mbwFJmyyjpDx0XPnLoxNg6cpbWy7pAZ4I3i8XnF_FXitS40pE48K9U3BGnkryifObqTFQ8H4YVjdeq3EVvAHMqNl8NOZ0OcDMT7QVwuyfsJRTYKeBwiz1EgogcuyA04yItUFbzU39swxDXHVayPHURyruCP5Dttn7xdBuc_JpxBnOtQ9H9eyDJzCXxq9S97N89QHgH6BlZa2Z8KymgqwHnpsDWifqUJ9USEKbYIAZebnjS_7S8BsUk_TAaFJ1T-X5pg3BtwoEdmnsBeoDdSuTp",
+  "results": [
+    {
+      "geometry": {
+        "location": {
+          "lat": 18.7060641,
+          "lng": 98.9817163
+        },
+        "viewport": {
+          "northeast": {
+            "lat": 18.8434085,
+            "lng": 99.05122179999999
+          },
+          "southwest": {
+            "lat": 18.7000955,
+            "lng": 98.86173269999999
+          }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/geocode-71.png",
+      "id": "345c0f78329f6fd4ab695622b99e6b2ee61ebf62",
+      "name": "เทศบาลนครเชียงใหม่",
+      "photos": [
+        {
+          "height": 904,
+          "html_attributions": [
+            "<a href=\"https://maps.google.com/maps/contrib/117384133666346250319/photos\">Toshio Itagaki</a>"
+          ],
+          "photo_reference": "CmRYAAAAcJgBaP7YkJw37dTdDt4uhRIJ2sqQ2iSlY3fsJBur7tWYDDjLSgojhptUX2T0VWakL8nhFVoUC2Ysw5jnhId2iuK6zxEYm9zw0aGyKJKLLO2hdqgBQ6ZjDROTvH3gOEvIEhBeQwK3DlA-8cDUPqkp0VtQGhRXfMmXIs8wS_xj4IL5oft86R1Mbw",
+          "width": 1200
+        }
+      ],
+      "place_id": "ChIJXW-7kH462jARZ0ObpXBi1Jg",
+      "reference": "CmRbAAAAg_dEGzA-rDAvBouFgEZOR6yGtzkbZ3yp325cWvpzcodJyc1faIImx5tQPbqmwu6hk1n63QmXQdkVYWwDp4WcxO2nQ2yNk5JiI_zDZacc2aeKdYnx2m25aDdbVsLHBDvYEhDcxmq6xhKngsOwolTHpHClGhSIQgSNYoGq2NpnJP8VCzPnRikIQg",
+      "scope": "GOOGLE",
+      "types": [
+        "locality",
+        "political"
+      ],
+      "vicinity": "เทศบาลนครเชียงใหม่"
+    },
+    {
+      "geometry": {
+        "location": {
+          "lat": 18.7733089,
+          "lng": 98.950935
+        },
+        "viewport": {
+          "northeast": {
+            "lat": 18.7746578802915,
+            "lng": 98.9522839802915
+          },
+          "southwest": {
+            "lat": 18.7719599197085,
+            "lng": 98.94958601970849
+          }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/lodging-71.png",
+      "id": "2e85e4b544a38f0b5eda97b8228f3755a147d6bf",
+      "name": "โรงแรมบีทู พรีเมียร์ เชียงใหม่ รีสอร์ท แอนด์ สปา",
+      "photos": [
+        {
+          "height": 398,
+          "html_attributions": [
+            "<a href=\"https://maps.google.com/maps/contrib/105916041915086769312/photos\">BooM C.</a>"
+          ],
+          "photo_reference": "CmRXAAAA7VMVOh9h9GXd5aelAoInESuuL6E72soPjeO8uRxaOguLkFPL9GxABlgt3zD7NtJ7zvHMRjuhJ54Q9q0sgc3FytFqYwopcE4IUIt_YQ7B8x1qltU2GoTUOgp0_74XQuOCEhAJAgt6ezkxP3CC0d6BmdeuGhT3dQ0Gv-rQIkD08E83gT7bC5-rQA",
+          "width": 600
+        }
+      ],
+      "place_id": "ChIJbYUropkw2jARD-QlhBVh3mk",
+      "rating": 3.7,
+      "reference": "CmRRAAAAXz3yuNg6YUIXV1zDnP3NWE4whH3ZPx6UTGFdWZyXaY5b5Dw1wlN-vDe79UHp37ZWyqi75WIsOR3p9kP8nlWMYeaUjWfQ2cG3rSJ9Uf0qktP0ljg06XYG8xDlvrxAoF2wEhCe7ja-vOxnrO57EiD9HAf4GhTV2aYWnrAyQxt17pbOW3at9Mkcdw",
+      "scope": "GOOGLE",
+      "types": [
+        "lodging",
+        "point_of_interest",
+        "establishment"
+      ],
+      "vicinity": "Cholprathan Road, Town"
+    },
+    {
+      "geometry": {
+        "location": {
+          "lat": 18.769491,
+          "lng": 98.9540542
+        },
+        "viewport": {
+          "northeast": {
+            "lat": 18.7708399802915,
+            "lng": 98.9554031802915
+          },
+          "southwest": {
+            "lat": 18.7681420197085,
+            "lng": 98.95270521970849
+          }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/generic_business-71.png",
+      "id": "7847b72bc2a87aef63c801d9c84828064011440f",
+      "name": "ชญยล คอนโดมิเนียม",
+      "photos": [
+        {
+          "height": 460,
+          "html_attributions": [
+            "<a href=\"https://maps.google.com/maps/contrib/116460325891596577982/photos\">ชญยล คอนโดมิเนียม</a>"
+          ],
+          "photo_reference": "CmRYAAAAe3M1fGu3JCdJIVsawjDkPnGPYahPX6cWvYLiWm8EnigkW5-V8VTXwELvT_8boGYDDWMI-xdko7MSKSx2hFdx0wYaK5ZGJr6W1_csQYXtLiZqAH6vmVH15cL-9_FnIbGBEhCXmZP7r03kcbxrl5vzeb-nGhRsGTHVHOZq2RNGjAAJHhhU23lDXQ",
+          "width": 460
+        }
+      ],
+      "place_id": "ChIJo2rzHpkw2jARsjHkluk_JTQ",
+      "rating": 4,
+      "reference": "CmRRAAAAMbWFp7N21Gvl_WYfLdC3pGRrfa9CX5HBYbVdOJspsgB2I5qkvt8PU8Ee_lkunqEhJSXwzCsbDdL7TbiPrfgDZUINQZo-vOjeSXTgLSeXjUpWvV3pr815gUTZL4CtL9ngEhB_0NLRWGOB2ZWd47zOjyEpGhQg0rFhBeX8bJ0deUIWMX814I4Peg",
+      "scope": "GOOGLE",
+      "types": [
+        "point_of_interest",
+        "establishment"
+      ],
+      "vicinity": "หมู่ 5 เชียงใหม่"
+    },
+    {
+      "geometry": {
+        "location": {
+          "lat": 18.768245,
+          "lng": 98.951604
+        },
+        "viewport": {
+          "northeast": {
+            "lat": 18.7695939802915,
+            "lng": 98.9529529802915
+          },
+          "southwest": {
+            "lat": 18.7668960197085,
+            "lng": 98.95025501970849
+          }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/lodging-71.png",
+      "id": "a726235fafb8440777105b4f63c88c0331446b86",
+      "name": "โอบอุ่น Homestay",
+      "photos": [
+        {
+          "height": 340,
+          "html_attributions": [
+            "<a href=\"https://maps.google.com/maps/contrib/107164700533393552232/photos\">โอบอุ่น Homestay</a>"
+          ],
+          "photo_reference": "CmRYAAAAWDPbPRhjRDv9qK7cvtGcmyozxa1i_8j6zAwvq9H9rLEjXCPO4wFiWsHD6p6jIykS4J68xyUEyqkDhmsDMdzTAdMx4k-QTqLVgCL3uYIoVRh_qJVF2-kinc-GlBPscPefEhDcR1tqtxOVKAmWNqHtH9GAGhS-r9AJlg51iaOplJdD7coQYXps9Q",
+          "width": 510
+        }
+      ],
+      "place_id": "ChIJre_gKJcw2jARMh-iYlU_y1o",
+      "rating": 4.5,
+      "reference": "CmRRAAAAyAVExmmqHtxgsSQdV4BsQ_srv2gGvcLYNxxcP5gF-RjTx2ihdiCTHfy6AHK-kuB-BNK7Mr_xE-RStUYAuFK4jCGYgxfK7MMhEhFsGvL2xywF_ptbvYdQOH3aJRea8OipEhCHOUhHiC9OCyELOC4rT6B3GhRaGDI6QeZ0Fe_KUEnYcVWdn9Lbyg",
+      "scope": "GOOGLE",
+      "types": [
+        "lodging",
+        "point_of_interest",
+        "establishment"
+      ],
+      "vicinity": "81/1 หมู่ 6 บ้านใหม่ ถ.เลียบคลองชลฯ ต.สุเทพ อ.เมือง"
+    },
+    {
+      "geometry": {
+        "location": {
+          "lat": 18.766686,
+          "lng": 98.94909299999999
+        },
+        "viewport": {
+          "northeast": {
+            "lat": 18.7680349802915,
+            "lng": 98.9504419802915
+          },
+          "southwest": {
+            "lat": 18.7653370197085,
+            "lng": 98.94774401970848
+          }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/lodging-71.png",
+      "id": "65f9c3f272006203da3062c69c7dd0fe4ec741b6",
+      "name": "ที่พัก เชียงใหม่ ถูก สวย แนะนำ ใกล้ถนนคนเดิน ไม่แพง นิมมานเหมินทร์",
+      "photos": [
+        {
+          "height": 530,
+          "html_attributions": [
+            "<a href=\"https://maps.google.com/maps/contrib/106787075314763049731/photos\">ที่พัก เชียงใหม่ ถูก สวย แนะนำ ใกล้ถนนคนเดิน ไม่แพง นิมมานเหมินทร์</a>"
+          ],
+          "photo_reference": "CmRYAAAA6N_8yk6fEdLxcCqk5w3VAUkreESgIOQlQWD0esEZMuANfhndbmgsgc1lm_Lw8HvsuDWxPL3dLbF1cnm-ismGVP_ejmdHWOP7gqUnIAPhg_YYGLVs-K7fBJfF1hq6wsCdEhCAfKg40rXGzgnzODVcukt9GhTF7TMNY31epkC9x1X3uPh1V8o4Uw",
+          "width": 800
+        }
+      ],
+      "place_id": "ChIJPy4RXpYw2jARFfMgS3sVvb0",
+      "rating": 4.2,
+      "reference": "CmRSAAAAj3jluF7vphzU2Ec_nkpU6bFvy1tzUaJiq31cAqxKEWmEuptYUwGsrM9cc39ABpBMc4W0SX6vkGLlkQiSLKcMDKo0kd9nYCC70fTStaqqxvlTlW8txKm-O6gOcZR_yprdEhCQuHYP1aQN1fPG_oVyz2bjGhQVyUZhgDQiE9uGy91Zu88cv6S1nA",
+      "scope": "GOOGLE",
+      "types": [
+        "travel_agency",
+        "real_estate_agency",
+        "lodging",
+        "point_of_interest",
+        "establishment"
+      ],
+      "vicinity": "ถนนเลียบคลองชลประทาน เมือง"
+    },
+    {
+      "geometry": {
+        "location": {
+          "lat": 18.770999,
+          "lng": 98.950474
+        },
+        "viewport": {
+          "northeast": {
+            "lat": 18.77234798029151,
+            "lng": 98.95182298029151
+          },
+          "southwest": {
+            "lat": 18.7696500197085,
+            "lng": 98.9491250197085
+          }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/generic_business-71.png",
+      "id": "d7fea4be85f36b7d2658d23d943695b3c27f5049",
+      "name": "Tooth Teeth Dental Clinic & Tooth Teeth Toy, Chiangmai, Thailand",
+      "opening_hours": {
+        "open_now": true,
+        "weekday_text": []
+      },
+      "photos": [
+        {
+          "height": 402,
+          "html_attributions": [
+            "<a href=\"https://maps.google.com/maps/contrib/117443429530378627417/photos\">Tooth Teeth Dental Clinic &amp; Tooth Teeth Toy, Chiangmai, Thailand</a>"
+          ],
+          "photo_reference": "CmRYAAAARRF4D80WsjyC84zt6BS9DIo9kHvKCZ8x5wnZ93V5ra0WLMf_O2IDnSEhLTp5KpFnZ7_vO360xh8xCyBqxYboXNlPBki_udfqaiRXBj-PRZXOOeqpl6_u1i4jusPBZJscEhDDYt3UaqXRvcUW4V43artHGhQP2BtX68hcK36aBvQVwAPK8yrrUw",
+          "width": 402
+        }
+      ],
+      "place_id": "ChIJpW3JY5cw2jARZc98nrOBao4",
+      "rating": 5,
+      "reference": "CmRSAAAAZh9LLRdH1NaHKTirPNCS7TDTzSP4uA7zNv8xrSLMFMjpT0eJ62a9SJGeYr55E7jrY1NTBP63qMXqzWxffZeK5GqdUEtZATdM7lK26rXwCYEQ_uHXWIJIPdTsnos9ifcGEhAgQVivu4mJCxqW_CJU74SPGhSobNcV3WCduEmHjxl8R5gpbMfnVg",
+      "scope": "GOOGLE",
+      "types": [
+        "dentist",
+        "health",
+        "point_of_interest",
+        "establishment"
+      ],
+      "vicinity": "99/10 Mu 5, Khlongchonpratan Road Chiang mai"
+    },
+    {
+      "geometry": {
+        "location": {
+          "lat": 18.773207,
+          "lng": 98.950982
+        },
+        "viewport": {
+          "northeast": {
+            "lat": 18.7745559802915,
+            "lng": 98.95233098029149
+          },
+          "southwest": {
+            "lat": 18.7718580197085,
+            "lng": 98.94963301970849
+          }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/lodging-71.png",
+      "id": "977fa39f84286d5fba804ce5733f3b3fdfc674a1",
+      "name": "B2 Premier Hotel / บีทู พรีเมียร์ รีสอร์ท แอนด์ สปา",
+      "opening_hours": {
+        "open_now": true,
+        "weekday_text": []
+      },
+      "photos": [
+        {
+          "height": 545,
+          "html_attributions": [
+            "<a href=\"https://maps.google.com/maps/contrib/117694190608833554721/photos\">B2 Premier Hotel / บีทู พรีเมียร์ รีสอร์ท แอนด์ สปา</a>"
+          ],
+          "photo_reference": "CmRYAAAAVUSsVAFHYHUoxevyGDVNGEXjkC9XGQwEuAsv8k3b0RENw9qu26DXJ_CBDh8n_0zB1UZr5hdUMUzZ7aHnQ_2a0QM8o9eZ5F3dziPo0KrUzsyysXnEuX3pARDSp_MXEKojEhBLqIHvoMZifdls6m9perOEGhSug1WMJWNYr7yD1lLYFkmlFAceBg",
+          "width": 1000
+        }
+      ],
+      "place_id": "ChIJkdjEmZkw2jARqe-FTc2CQAA",
+      "rating": 4.1,
+      "reference": "ClRQAAAAG5SqInk4AZoPOl0VZvlX39EubDuTNzuA94j0u_Y5Bch0xdV2N_KVcV2NIS2bn0N4-3wOwjAvud9r7G4yB_JQ5RcD6e57hoxBk-_2_u0AW4oSEHRtkiR2jNpVnonIB0GfhBoaFJmi4ju1Set-xI5Ky5fyBwGGAVo0",
+      "scope": "GOOGLE",
+      "types": [
+        "lodging",
+        "point_of_interest",
+        "establishment"
+      ],
+      "vicinity": "163 T.Suthep, Muang"
+    },
+    {
+      "geometry": {
+        "location": {
+          "lat": 18.7726246,
+          "lng": 98.9493308
+        },
+        "viewport": {
+          "northeast": {
+            "lat": 18.77397358029151,
+            "lng": 98.95067978029149
+          },
+          "southwest": {
+            "lat": 18.7712756197085,
+            "lng": 98.94798181970849
+          }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/generic_business-71.png",
+      "id": "e1d0470514cce816a02416a72d0a5f56f86cc3b5",
+      "name": "Cheeva Life and Spa",
+      "place_id": "ChIJdxHNDAk72jAROzg58iQv5l4",
+      "reference": "CmRRAAAAmqKjGMSXRm0vlmRn69eiuOXlcraZHEnzEJVpzjkCfYmThsAcYG4FYy-eKeTqJ4G2jT_MxZ74i9DZf8g0SFbitOocG28VMNnmJzbkhaiuLFiRxB2VlagKZRgCxLytMrKgEhB8ol9lfETJrnpz_HptK_PgGhTQwI43dvoEEKSLqM6VhUGYF6uP6Q",
+      "scope": "GOOGLE",
+      "types": [
+        "spa",
+        "point_of_interest",
+        "establishment"
+      ],
+      "vicinity": "29 / 2 Huay Kaew Rd., T. Suthep, Muang, 50000"
+    },
+    {
+      "geometry": {
+        "location": {
+          "lat": 18.7729848,
+          "lng": 98.9502445
+        },
+        "viewport": {
+          "northeast": {
+            "lat": 18.7743337802915,
+            "lng": 98.95159348029151
+          },
+          "southwest": {
+            "lat": 18.7716358197085,
+            "lng": 98.9488955197085
+          }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/generic_business-71.png",
+      "id": "d46eac0e6b2f81f70923ed8c76777846d903943f",
+      "name": "สวนดอกแมนชั่น",
+      "place_id": "ChIJKZysu5kw2jARfSmKKZYoOKE",
+      "reference": "CmRSAAAAWqFFn5lkLuMiqGYLgWuxiZf5v5hBR_o6rtZlFS_zHeC_ZE6_PKmyxQNK0Dvu11v0GUzaD6PqvU657Blm5ZQHsFpbPM2ypVEBHLS48FK3mjMfcKTTk_6ZZdkNBfIm7TTfEhBTtrPLU87SPEmQKHE5tnGKGhRBl4KXE_hGjbYgPSI1L3SnhjpQhQ",
+      "scope": "GOOGLE",
+      "types": [
+        "point_of_interest",
+        "establishment"
+      ],
+      "vicinity": "74 ศิริมังคลาจารย์, ตำบลสุเทพ อำเภอเมืองเชียงใหม่ เชียงใหม่, 50200"
+    },
+    {
+      "geometry": {
+        "location": {
+          "lat": 18.769439,
+          "lng": 98.9498382
+        },
+        "viewport": {
+          "northeast": {
+            "lat": 18.7707879802915,
+            "lng": 98.95118718029151
+          },
+          "southwest": {
+            "lat": 18.7680900197085,
+            "lng": 98.94848921970851
+          }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/doctor-71.png",
+      "id": "8a3f85e7e7839d02528bf1f031d59c9efed1fe76",
+      "name": "โรงพยาบาลส่งเสริมสุขภาพตำบลสุเทพ",
+      "place_id": "ChIJ-9LpDJcw2jARr80XctX4-h4",
+      "rating": 5,
+      "reference": "CmRRAAAADtqWFTcIPqOwdeJkDcUV8ItLVvQahw6oD7VLS2JZiiwAcgvmFo68wc-H4pt1AilVms06TJAKtINtyptC8v0aRk7c9sdO06JCzdKjMeQypw040J_mqWs_q2JA7jtRFfS8EhAiF4fxbScradg8PrdKGc9gGhSZJcad1IrokNBCiskuue5AQ-ggcQ",
+      "scope": "GOOGLE",
+      "types": [
+        "hospital",
+        "point_of_interest",
+        "establishment"
+      ],
+      "vicinity": "อำเภอเมืองเชียงใหม่"
+    },
+    {
+      "geometry": {
+        "location": {
+          "lat": 18.7729848,
+          "lng": 98.9502445
+        },
+        "viewport": {
+          "northeast": {
+            "lat": 18.7743337802915,
+            "lng": 98.95159348029151
+          },
+          "southwest": {
+            "lat": 18.7716358197085,
+            "lng": 98.9488955197085
+          }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/generic_business-71.png",
+      "id": "8af857c4d3431440609f5160d8212048577d951c",
+      "name": "บริษัท เพียงพอ เอ็นเทอร์ไพรส์ จำกัด",
+      "place_id": "ChIJFbRZu5c62jARqIaoK3czuiM",
+      "reference": "CmRRAAAA75zh9vBbz-kG7oWKrOwEx3iq6q4RqcN3u3uBpnNpRWBrYQbRFrzs4ibqFx7sL7wQDondpLoVkU8hhjxMWf7w7Paspf_kEhwMfQnR4-becZs5hisSk-gyUrDV4Xt3kVR7EhDwp59cdGuDiuQiVe5ySD1ZGhQi45vq1Xqure1mMPsswHOAZnuuTA",
+      "scope": "GOOGLE",
+      "types": [
+        "point_of_interest",
+        "establishment"
+      ],
+      "vicinity": "หมู่ที่ 2 1/1 อำเภอเมืองเชียงใหม่"
+    },
+    {
+      "geometry": {
+        "location": {
+          "lat": 18.7730446,
+          "lng": 98.9502524
+        },
+        "viewport": {
+          "northeast": {
+            "lat": 18.7743935802915,
+            "lng": 98.95160138029151
+          },
+          "southwest": {
+            "lat": 18.7716956197085,
+            "lng": 98.94890341970849
+          }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/lodging-71.png",
+      "id": "b1412fd8362aa1000000d38b685b4ce1a6026675",
+      "name": "เดอะเนส เบด แอนด์ เบรคฟาสต์",
+      "place_id": "ChIJlw4Du5kw2jARMX3THw7aaDk",
+      "reference": "CmRRAAAAd3HfV4Tai5L4pgQSsfsTjzG6Uh4Y_CKFVaLQVutAw2NyLht9ZNdrnZIhAMxIbrsJ3OAOfbU_83mQVz5zbxlo4to1lx2eCQEbKn3Yzyn_TbSl6YNrmKVRUnYImiZBQjMMEhCMG-6cyXmj97Z7M9bTvtbxGhTiSqFdHTAQMN1I3XTtV-7FLsoZNg",
+      "scope": "GOOGLE",
+      "types": [
+        "lodging",
+        "point_of_interest",
+        "establishment"
+      ],
+      "vicinity": "21/1-2ถนนศิริมังคลาจารย์ ซอย 5, ตำบลสุเทพ อำเภอเมือง จังหวัดเชียงใหม่, 50200"
+    },
+    {
+      "geometry": {
+        "location": {
+          "lat": 18.7713664,
+          "lng": 98.95245419999999
+        },
+        "viewport": {
+          "northeast": {
+            "lat": 18.7727153802915,
+            "lng": 98.9538031802915
+          },
+          "southwest": {
+            "lat": 18.77001741970849,
+            "lng": 98.9511052197085
+          }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/generic_business-71.png",
+      "id": "8f8e7b96aa83f25ecfff1b9e5aeb655c657431b4",
+      "name": "โปโลล้านนา",
+      "opening_hours": {
+        "open_now": true,
+        "weekday_text": []
+      },
+      "photos": [
+        {
+          "height": 720,
+          "html_attributions": [
+            "<a href=\"https://maps.google.com/maps/contrib/103072344838153182972/photos\">โปโลล้านนา</a>"
+          ],
+          "photo_reference": "CmRYAAAA8YAJLRt5socWA6VixlZzgJOxHR7uQRgBvzuQyQnGpurShfU3gDLcORAwQSVkcrdfMlS636zfr64N0BhxoPvDziOJtvCysnHMXPhj8dUs-EY9Mf8nj4bN_GQ6D0sZ_NJJEhCvEpj-ThWQrJLk90PPalaoGhRFLsf4bwojtIjyocxobR-Z89slBg",
+          "width": 720
+        }
+      ],
+      "place_id": "ChIJ9eKAC-Yw2jARXF4vuCd8_yI",
+      "rating": 5,
+      "reference": "CmRRAAAAeiulVKCRHizqhvDYZTXzK8wZZiCxE19Eq_N-i9QeVTFzBf2sv_71FmjTxlVZGpBbGy_XUCaCdW4QvuGohhbePd6Voh7qPLGPSAb_UCEHCZUr9TfE5BVFobrL5HO4NGHXEhCIBg_22EoJ2UohaMjor1BSGhTRAFfnaNmkzVI2pDTCRcaGTp2m6w",
+      "scope": "GOOGLE",
+      "types": [
+        "clothing_store",
+        "store",
+        "point_of_interest",
+        "establishment"
+      ],
+      "vicinity": "119/2 หมู่บ้านไฮแลนด์วิวเพรส ถนนคันคลองชลประทาน ตำบลสุเทพ เมือง"
+    },
+    {
+      "geometry": {
+        "location": {
+          "lat": 18.771928,
+          "lng": 98.952141
+        },
+        "viewport": {
+          "northeast": {
+            "lat": 18.7732769802915,
+            "lng": 98.95348998029149
+          },
+          "southwest": {
+            "lat": 18.7705790197085,
+            "lng": 98.95079201970849
+          }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/generic_business-71.png",
+      "id": "b32b1ef9bd808827331b184eb00212081df75876",
+      "name": "wow88studio",
+      "place_id": "ChIJneD1HZow2jARQZkvczfBD2c",
+      "reference": "CmRRAAAA1a5KKJAwMcljqh0cOz514IuRVHcWaPV5LhxPQvZeSHBmQc5InSJHoqewejuaOAarzJsRDMUP-wTIDmA1cBKbWmcqyGXj3cmPWIemeQdOoxnul3v-yHqjta7b99_74eOqEhD99bXIu82_yHcsQ3ebKD5TGhRdVDn6yj8ZCl1Z7wzZRioT_xXFLg",
+      "scope": "GOOGLE",
+      "types": [
+        "point_of_interest",
+        "establishment"
+      ],
+      "vicinity": "24/6-7Nimmanhaemin Rd., Tambom Suhep, Ampueo Meung,Chiang mai, 50200"
+    },
+    {
+      "geometry": {
+        "location": {
+          "lat": 18.770525,
+          "lng": 98.94774100000001
+        },
+        "viewport": {
+          "northeast": {
+            "lat": 18.7718739802915,
+            "lng": 98.9490899802915
+          },
+          "southwest": {
+            "lat": 18.7691760197085,
+            "lng": 98.9463920197085
+          }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/generic_business-71.png",
+      "id": "640b76eabff18682d340d6171f4995302392fc8c",
+      "name": "Chiang Mai HIP Magazine & Event",
+      "opening_hours": {
+        "open_now": true,
+        "weekday_text": []
+      },
+      "photos": [
+        {
+          "height": 315,
+          "html_attributions": [
+            "<a href=\"https://maps.google.com/maps/contrib/115401647981533718452/photos\">Samonporn Shunsiri</a>"
+          ],
+          "photo_reference": "CmRYAAAA6pT25dR9nP1hkOvX4CMNxVbIM9CKs7yGUc_fBfV9_f6lLU05bqAXCHAcNNMn7hPk94AdBV6w5xR2-GitepKCNBrROsf7Lhw4Bi5ZpvxuACivDbG34WNkkgDNskj265bGEhBFqe245WMeuZ8_VjMuldptGhRVDgJcS1aZDozDcEAMANST1HQUXA",
+          "width": 851
+        }
+      ],
+      "place_id": "ChIJkepJ8pcw2jAR5IWs_GjdXRs",
+      "reference": "CmRRAAAA9NxpXNdboxyfSCjmi8XG83hrx4aKqh0YmzXzYtEX6mtWRdTKuqJjONlm7x8d44xixriAiVRUJf2NWdQvgRStMHDxUx2WVw629xLg5VU6DRKYPhQGuvJV02uE6wv60yaEEhCbja2z4W98ahvLVgbg73AgGhRiVEmgtwSOIUByyPDHr424PeCmqA",
+      "scope": "GOOGLE",
+      "types": [
+        "point_of_interest",
+        "establishment"
+      ],
+      "vicinity": "ซอย 5 เมืองเชียงใหม่ อำเภอเมืองเชียงใหม่"
+    },
+    {
+      "geometry": {
+        "location": {
+          "lat": 18.7731129,
+          "lng": 98.95030709999999
+        },
+        "viewport": {
+          "northeast": {
+            "lat": 18.7744618802915,
+            "lng": 98.9516560802915
+          },
+          "southwest": {
+            "lat": 18.7717639197085,
+            "lng": 98.94895811970849
+          }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/generic_business-71.png",
+      "id": "1a060c9e9c9750107aebc25c8bac99a110d69f79",
+      "name": "บ้านปาร์คอินน์",
+      "photos": [
+        {
+          "height": 346,
+          "html_attributions": [
+            "<a href=\"https://maps.google.com/maps/contrib/106435820050553418018/photos\">Gieng Tee</a>"
+          ],
+          "photo_reference": "CmRYAAAA_GM9BVXCjk3R1LndMo_pE_97Orq_4rXnNvGAGuGfbDN1vFXZKCy76xVwA1KV_AUqSkIZgIYIANmikI7qatPSe5jlk7ojA_JfJHRy1ovnhnnPzAaXcoDBmOVQIhjGa_G1EhAh1Dv2W2LaPuksYwjzgmHnGhRCZ8ZSaRST-9eRbu9RONhZ5zb25g",
+          "width": 749
+        }
+      ],
+      "place_id": "ChIJp5M-u5kw2jARiD5uDUzp82w",
+      "reference": "CmRRAAAA6IDfNOpmgNrpkVs7vAh5MYjjo2hDSWyuNVoVZM_BT3D0SD-dE7MlriWUizo8ujSv6EtsxCuUJu4AsrUjBD48CAJmypFvisM_ViECbFCHADskBHu-jjn56INw09wiYoobEhDB2NR-BnF01dloAgngZSx0GhSLlS7XS7sOums4yWQgb_CDu0Zk1Q",
+      "scope": "GOOGLE",
+      "types": [
+        "point_of_interest",
+        "establishment"
+      ],
+      "vicinity": "5/17 หมู่7ถ.เชียงใหม่-หางดง, ต.สุเทพ อ.เมือง จ.เชียงใหม่ เชียงใหม่, 50200"
+    },
+    {
+      "geometry": {
+        "location": {
+          "lat": 18.7729848,
+          "lng": 98.9502445
+        },
+        "viewport": {
+          "northeast": {
+            "lat": 18.7743337802915,
+            "lng": 98.95159348029151
+          },
+          "southwest": {
+            "lat": 18.7716358197085,
+            "lng": 98.9488955197085
+          }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/generic_business-71.png",
+      "id": "5516629c964d651577953fec94343f1ebd399a6c",
+      "name": "บริษัท ไวแทลลิที จำกัด",
+      "place_id": "ChIJj_____9P2jARdLIxyxNUAnY",
+      "reference": "CmRRAAAAyJ0Q44ZjwJPIpBIuaP8duol8oSBwbpFryEU9x4G3r6xNqR8lLWZGZa_cWFv0LoCSmFdAhvcYWZ0NBK9cIKKUENd62qYRAVxKwcRqOMhUG0vOhEHiDmiUV673Mf1-0gi2EhDYsGtMFTOjvq8h_syuFF8cGhQLv1rQ0K0gxGOoi9pu4B2GmH20vQ",
+      "scope": "GOOGLE",
+      "types": [
+        "health",
+        "point_of_interest",
+        "establishment"
+      ],
+      "vicinity": "หมู่ที่ 5 16/1 อำเภอเมืองเชียงใหม่"
+    },
+    {
+      "geometry": {
+        "location": {
+          "lat": 18.770467,
+          "lng": 98.94984699999999
+        },
+        "viewport": {
+          "northeast": {
+            "lat": 18.7718159802915,
+            "lng": 98.9511959802915
+          },
+          "southwest": {
+            "lat": 18.7691180197085,
+            "lng": 98.9484980197085
+          }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/generic_business-71.png",
+      "id": "ea4ceba612887d0117d25dc7c24bfbe05d3ec115",
+      "name": "บริษัท โยพิ เอเชีย จำกัด",
+      "opening_hours": {
+        "open_now": true,
+        "weekday_text": []
+      },
+      "place_id": "ChIJBXCye5cw2jARMcj2IrfFq0I",
+      "reference": "CmRRAAAAE85KRCLIMHlBXVJYEH05Pnr2Q25czq87Pj1xehx1tUCKpoahwZd5es_hsTGXdjAagDZKzCoA_wcAgHirWONwE9nw6wvtiFtzaFTkk9Dd-zTY_A8OgcBV2BwSPMfEMqrNEhA4ucJor2EW7g-xe2od1RsxGhSxqkW7zmlf4Uxwl5Y76GaQnTIsnA",
+      "scope": "GOOGLE",
+      "types": [
+        "point_of_interest",
+        "establishment"
+      ],
+      "vicinity": "ถนนเลียบคลองชลประทาน, อ.เมือง"
+    },
+    {
+      "geometry": {
+        "location": {
+          "lat": 18.7729848,
+          "lng": 98.9502445
+        },
+        "viewport": {
+          "northeast": {
+            "lat": 18.7743337802915,
+            "lng": 98.95159348029151
+          },
+          "southwest": {
+            "lat": 18.7716358197085,
+            "lng": 98.9488955197085
+          }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/generic_business-71.png",
+      "id": "504c15ef2be09caef5a738921ef45c2109f8f4e9",
+      "name": "บริษัท ตรวจสอบอาคารปลอดภัย จำกัด",
+      "place_id": "ChIJFbRZu5c62jARlJaFsQQPEvc",
+      "reference": "CmRSAAAASRYFZlJOfindFaYzIv3g7tf5WcicUddCZv-qmy3EfwlaocyhGtqXe74FnzhfYhg4y3fsl5gftE1UkQuv6WZ540JERV7gWfTYnZyLqhvGZdzYOFzEv0bk_RKjbqiF9oD5EhBOn2l9evTxu0LEyCow9q6FGhRfbBZpZq4oVJSlu5PhmOxKnJg00w",
+      "scope": "GOOGLE",
+      "types": [
+        "point_of_interest",
+        "establishment"
+      ],
+      "vicinity": "หมู่ที่ 5 13/1 อำเภอเมืองเชียงใหม่"
+    },
+    {
+      "geometry": {
+        "location": {
+          "lat": 18.7936211,
+          "lng": 98.9560245
+        },
+        "viewport": {
+          "northeast": {
+            "lat": 18.8353245,
+            "lng": 98.97782219999999
+          },
+          "southwest": {
+            "lat": 18.7444321,
+            "lng": 98.86173269999999
+          }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/geocode-71.png",
+      "id": "b57a160fd4b2209304e2d7f8246b95d5f3be9264",
+      "name": "ตำบล สุเทพ",
+      "photos": [
+        {
+          "height": 1365,
+          "html_attributions": [
+            "<a href=\"https://maps.google.com/maps/contrib/115627990429723441015/photos\">abuchan cromer</a>"
+          ],
+          "photo_reference": "CmRYAAAALimuKVwkAwdJ7FhhMt0No5muZAklhR52-HuSdQ3E5RAssJ4y3arXxtmXAGBdrTvS06gjmI9PHuAIUYhw9aj9WZdi-PC76GuJeRoOPWM52nhpbciaWV-H5CYCViFiqablEhDME-2gvqwB_drN66LdQgnWGhRfVAyUDub9cjagM2Jro-PJ6c6GBw",
+          "width": 2048
+        }
+      ],
+      "place_id": "ChIJowZ6sv452jARUIqL-sVGAwQ",
+      "reference": "CmRbAAAABW11tuYR2aeOv70IMptusACYmkOhdzyPvnns8hr_k2JmXLZDUvYNHfpWlyBwbFmTRXEQO4pai0OybhePZoVHjaXlE8rFGfHtjpGV4V0e8pK3YnW6aRw5W0-QgvW7431qEhBhDoSJ02NH7M2xGxqVQ3drGhQsIKjUabHh19tLgLSIVgm3QLUj2Q",
+      "scope": "GOOGLE",
+      "types": [
+        "sublocality_level_1",
+        "sublocality",
+        "political"
+      ],
+      "vicinity": "ตำบล สุเทพ"
+    }
+  ],
+  "status": "OK"
+}

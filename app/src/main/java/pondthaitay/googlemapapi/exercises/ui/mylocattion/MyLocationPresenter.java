@@ -5,6 +5,7 @@ import javax.inject.Inject;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
+import pondthaitay.googlemapapi.exercises.R;
 import pondthaitay.googlemapapi.exercises.api.BaseSubscriber;
 import pondthaitay.googlemapapi.exercises.api.dao.NearbySearchDao;
 import pondthaitay.googlemapapi.exercises.api.service.GoogleMapApi;
@@ -21,6 +22,10 @@ public class MyLocationPresenter extends BasePresenter<MyLocationInterface.View>
         super();
         this.googleMapApi = googleMapApi;
         this.disposables = new CompositeDisposable();
+    }
+
+    void setDisposables(CompositeDisposable mockDisposables) {
+        this.disposables = mockDisposables;
     }
 
     @Override
@@ -58,7 +63,10 @@ public class MyLocationPresenter extends BasePresenter<MyLocationInterface.View>
     public <T> void onSuccess(T result) {
         if (getView() != null) {
             getView().hideProgressDialog();
-            getView().loadNearbySearchSuccess((NearbySearchDao) result);
+            if (((NearbySearchDao) result).getList().isEmpty())
+                getView().showError(R.string.please_try_again);
+            else
+                getView().loadNearbySearchSuccess((NearbySearchDao) result);
         }
     }
 
