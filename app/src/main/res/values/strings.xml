@@ -1,3 +1,14 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">GoogleMapAPI-Exercises</string>
+    <string name="google_maps_key">AIzaSyD11oNHczst4YjOzUvzz-wXo2M09qgV1w8</string>
+    <string name="loading" tools:ignore="TypographyEllipsis">Loading...</string>
+    <string name="un_authorize_api">UnAuthorize user</string>
+    <string name="enable_location_service">Please enable location service</string>
+    <string name="open_location_settings">Open Location Settings</string>
+    <string name="permission_denied">Location permission was denied.</string>
+    <string name="title_permission_rationale">Access your location</string>
+    <string name="permission_rationale">Would you like the system access your location?</string>
+    <string name="btn_ok">OK</string>
+    <string name="btn_cancel" tools:ignore="ButtonCase">cancel</string>
+    <string name="search">Search Nearby</string>
 </resources>
