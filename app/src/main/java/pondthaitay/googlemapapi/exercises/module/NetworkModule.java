@@ -28,7 +28,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class NetworkModule {
 
     private static final int TIME_OUT = 60;
-    private static String baseUrl = "";
+    private static String baseUrl = "https://maps.googleapis.com/maps/api/place/";
 
     private static String getBaseUrl() {
         return baseUrl;

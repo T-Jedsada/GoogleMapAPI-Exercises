@@ -4,10 +4,10 @@ import javax.inject.Inject;
 
 import pondthaitay.googlemapapi.exercises.ui.base.BasePresenter;
 
-class CustomActivityPresenter extends BasePresenter<CustomActivityInterface.View> implements CustomActivityInterface.Presenter {
+class CustomPresenter extends BasePresenter<CustomInterface.View> implements CustomInterface.Presenter {
 
     @Inject
-    CustomActivityPresenter() {
+    CustomPresenter() {
         super();
     }
 

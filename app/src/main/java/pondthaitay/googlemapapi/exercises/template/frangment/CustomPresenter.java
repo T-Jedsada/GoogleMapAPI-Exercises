@@ -4,11 +4,11 @@ import javax.inject.Inject;
 
 import pondthaitay.googlemapapi.exercises.ui.base.BasePresenter;
 
-class CustomFragmentPresenter extends BasePresenter<CustomFragmentInterface.View>
-        implements CustomFragmentInterface.Presenter {
+class CustomPresenter extends BasePresenter<CustomInterface.View>
+        implements CustomInterface.Presenter {
 
     @Inject
-    CustomFragmentPresenter() {
+    CustomPresenter() {
         super();
     }
 

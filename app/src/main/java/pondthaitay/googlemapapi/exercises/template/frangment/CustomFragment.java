@@ -1,21 +1,13 @@
 package pondthaitay.googlemapapi.exercises.template.frangment;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
 
-import javax.inject.Inject;
-
-import butterknife.BindView;
-import butterknife.internal.Utils;
 import pondthaitay.googlemapapi.exercises.ApplicationComponent;
-import pondthaitay.googlemapapi.exercises.R;
 import pondthaitay.googlemapapi.exercises.ui.base.BaseFragment;
-import timber.log.Timber;
 
-public class CustomFragment extends BaseFragment<CustomFragmentPresenter>
-        implements CustomFragmentInterface.View {
+public class CustomFragment extends BaseFragment<CustomPresenter>
+        implements CustomInterface.View {
 
     public static CustomFragment newInstance() {
         CustomFragment fragment = new CustomFragment();

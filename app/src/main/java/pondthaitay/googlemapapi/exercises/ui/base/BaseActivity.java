@@ -1,13 +1,34 @@
 package pondthaitay.googlemapapi.exercises.ui.base;
 
+import android.Manifest;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.LatLng;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -21,6 +42,9 @@ import pondthaitay.googlemapapi.exercises.ui.base.exception.MvpPresenterNotCreat
 
 public abstract class BaseActivity<P extends BasePresenter> extends AppCompatActivity
         implements BaseInterface.View {
+
+    private static final int LOCATION_REQUEST_CODE = 2001;
+    private static final int LOCATION_NOTIFICATION_ID = 2000;
 
     @Inject
     P presenter;
@@ -150,5 +174,69 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
 
     private void showSnackBar(@NonNull String message) {
         if (contentView != null) Snackbar.make(contentView, message, Snackbar.LENGTH_SHORT).show();
+    }
+
+    protected boolean isLocationEnable() {
+        LocationManager locationManager =
+                (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+    }
+
+    protected Location getLastKnownLocation() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) !=
+                PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return null;
+        }
+        LocationManager locationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
+        List<String> providers = locationManager.getProviders(true);
+        Location bestLocation = null;
+        for (String provider : providers) {
+            Location l = locationManager.getLastKnownLocation(provider);
+            if (l == null) {
+                continue;
+            }
+            if (bestLocation == null || l.getAccuracy() < bestLocation.getAccuracy()) {
+                bestLocation = l;
+            }
+        }
+        return bestLocation;
+    }
+
+    protected void enableMyLocationMap(GoogleMap mGoogleMap) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+            return;
+        if (mGoogleMap != null) mGoogleMap.setMyLocationEnabled(true);
+    }
+
+    protected void moveCameraToMyLocation(GoogleMap mGoogleMap) {
+        Location location = getLastKnownLocation();
+        if (isLocationEnable() && location != null) {
+            mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
+                    new LatLng(location.getLatitude(), location.getLongitude()), 16));
+        }
+    }
+
+    protected void createLocationNotification(Context context) {
+        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, LOCATION_REQUEST_CODE, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+
+        Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context);
+        mBuilder.setSmallIcon(R.drawable.ic_settings)
+                .setSound(alarmSound)
+                .setPriority(Notification.PRIORITY_HIGH)
+                .setVibrate(new long[]{0, 400})
+                .setColor(ContextCompat.getColor(context, R.color.notification_color))
+                .setLights(ContextCompat.getColor(context, R.color.colorPrimaryDark), 1000, 1000)
+                .setContentTitle(context.getString(R.string.enable_location_service))
+                .setContentText(context.getString(R.string.open_location_settings))
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true);
+
+        NotificationManager mNotifyMgr = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        mNotifyMgr.notify(LOCATION_NOTIFICATION_ID, mBuilder.build());
     }
 }

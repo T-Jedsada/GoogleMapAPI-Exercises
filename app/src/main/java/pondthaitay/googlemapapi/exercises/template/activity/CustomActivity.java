@@ -5,8 +5,8 @@ import android.os.Bundle;
 import pondthaitay.googlemapapi.exercises.ApplicationComponent;
 import pondthaitay.googlemapapi.exercises.ui.base.BaseActivity;
 
-public class CustomActivity extends BaseActivity<CustomActivityPresenter>
-        implements CustomActivityInterface.View {
+public class CustomActivity extends BaseActivity<CustomPresenter>
+        implements CustomInterface.View {
     @Override
     public void testResult() {
 
