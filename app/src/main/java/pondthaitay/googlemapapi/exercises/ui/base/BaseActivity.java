@@ -214,7 +214,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         Location location = getLastKnownLocation();
         if (isLocationEnable() && location != null) {
             mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                    new LatLng(location.getLatitude(), location.getLongitude()), 16));
+                    new LatLng(location.getLatitude(), location.getLongitude()), 15));
         }
     }
 

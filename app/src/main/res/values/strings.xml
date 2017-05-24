@@ -13,4 +13,7 @@
     <string name="search">Search Nearby</string>
     <string name="please_try_again">Please try again.</string>
     <string name="distance">Distance</string>
+    <string name="show_list">Show List</string>
+    <string name="km">km</string>
+    <string name="sort_by_name">Sort by name</string>
 </resources>

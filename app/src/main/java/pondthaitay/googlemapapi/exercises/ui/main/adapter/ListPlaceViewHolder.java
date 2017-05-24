@@ -44,8 +44,9 @@ class ListPlaceViewHolder extends RecyclerView.ViewHolder implements View.OnClic
 
     @SuppressLint("DefaultLocale")
     private String getDistance(Location origins, Location destination) {
-        return String.format("%s : %.2f", itemView.getContext().getString(R.string.distance),
-                origins.distanceTo(destination));
+        return String.format("%s : %.2f %s", itemView.getContext().getString(R.string.distance),
+                (origins.distanceTo(destination) / 1000),
+                itemView.getContext().getString(R.string.km));
     }
 
     @Override

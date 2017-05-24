@@ -23,6 +23,7 @@ public class ListPlaceAdapter extends RecyclerView.Adapter<ListPlaceViewHolder> 
     public void setData(NearbySearchDao data, Location myLocation) {
         this.dao = data;
         this.myLocation = myLocation;
+        notifyDataSetChanged();
     }
 
     public void setListener(LisPlaceListener listener) {
@@ -44,7 +45,8 @@ public class ListPlaceAdapter extends RecyclerView.Adapter<ListPlaceViewHolder> 
 
     @Override
     public int getItemCount() {
-        return dao.getList().size() + 1;
+        if (dao == null || dao.getList().isEmpty()) return 0;
+        else return dao.getList().size();
     }
 
     @Override
