@@ -16,6 +16,7 @@ public class MyLocationPresenter extends BasePresenter<MyLocationInterface.View>
 
     private GoogleMapApi googleMapApi;
     private CompositeDisposable disposables;
+    private NearbySearchDao nearbySearchDao;
 
     @Inject
     MyLocationPresenter(GoogleMapApi googleMapApi) {
@@ -28,6 +29,10 @@ public class MyLocationPresenter extends BasePresenter<MyLocationInterface.View>
         this.disposables = mockDisposables;
     }
 
+    void setNearbySearchDao(NearbySearchDao mockNearbyDao) {
+        this.nearbySearchDao = mockNearbyDao;
+    }
+
     @Override
     public void onViewCreate() {
 
@@ -36,6 +41,7 @@ public class MyLocationPresenter extends BasePresenter<MyLocationInterface.View>
     @Override
     public void onViewDestroy() {
         if (disposables != null) disposables.clear();
+        nearbySearchDao = null;
     }
 
     @Override
@@ -52,7 +58,7 @@ public class MyLocationPresenter extends BasePresenter<MyLocationInterface.View>
     public void searchNearby(String location, int radius, String key) {
         if (getView() != null) {
             getView().showProgressDialog();
-            disposables.add(googleMapApi.nearbySearch(location, radius, key)
+            disposables.add(googleMapApi.nearbySearch(location, radius, key, getTokenNextPage())
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribeWith(new BaseSubscriber<>(this)));
@@ -63,10 +69,12 @@ public class MyLocationPresenter extends BasePresenter<MyLocationInterface.View>
     public <T> void onSuccess(T result) {
         if (getView() != null) {
             getView().hideProgressDialog();
-            if (((NearbySearchDao) result).getList().isEmpty())
+            if (((NearbySearchDao) result).getList().isEmpty()) {
                 getView().showError(R.string.please_try_again);
-            else
-                getView().loadNearbySearchSuccess((NearbySearchDao) result);
+            } else {
+                nearbySearchDao = (NearbySearchDao) result;
+                getView().loadNearbySearchSuccess(getNearbySearchDao());
+            }
         }
     }
 
@@ -76,5 +84,14 @@ public class MyLocationPresenter extends BasePresenter<MyLocationInterface.View>
             getView().hideProgressDialog();
             getView().showError(message);
         }
+    }
+
+    private String getTokenNextPage() {
+        if (nearbySearchDao == null) return "";
+        else return nearbySearchDao.getNextPageToken();
+    }
+
+    NearbySearchDao getNearbySearchDao() {
+        return nearbySearchDao;
     }
 }

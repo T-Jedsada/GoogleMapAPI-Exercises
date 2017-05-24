@@ -3,6 +3,7 @@ package pondthaitay.googlemapapi.exercises.ui.mylocattion;
 import android.util.Log;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -80,6 +81,7 @@ public class MyLocationPresenterTest {
     public void onViewDestroy() throws Exception {
         presenter.onViewDestroy();
         verify(mockDisposable, times(1)).clear();
+        Assert.assertNull(presenter.getNearbySearchDao());
     }
 
     @Test
@@ -100,7 +102,33 @@ public class MyLocationPresenterTest {
 
         Response<NearbySearchDao> mockResponse = Response.success(mockResult);
         Observable<Response<NearbySearchDao>> mockObservable = Observable.just(mockResponse);
-        when(mockGoogleMapApi.nearbySearch(anyString(), anyInt(), anyString())).thenReturn(mockObservable);
+        when(mockGoogleMapApi.nearbySearch(anyString(), anyInt(), anyString(), anyString()))
+                .thenReturn(mockObservable);
+        presenter.searchNearby("location", 500, "key");
+        verify(mockView, times(1)).showProgressDialog();
+        verify(mockDisposable, times(1)).add(anyObject());
+
+        TestObserver<Response<NearbySearchDao>> testObserver = mockObservable.test();
+        testObserver.awaitTerminalEvent();
+        testObserver.assertValue(response -> {
+            verify(mockView, times(1)).hideProgressDialog();
+            verify(mockView, times(1)).loadNearbySearchSuccess(eq(mockResult));
+            assertThat(response, is(mockResponse));
+            return true;
+        });
+    }
+
+    @Test
+    public void searchNearbyMoreSuccess() throws Exception {
+        NearbySearchDao mockResult = jsonUtil.getJsonToMock(
+                "nearby_search_success.json",
+                NearbySearchDao.class);
+
+        Response<NearbySearchDao> mockResponse = Response.success(mockResult);
+        Observable<Response<NearbySearchDao>> mockObservable = Observable.just(mockResponse);
+        when(mockGoogleMapApi.nearbySearch(anyString(), anyInt(), anyString(), anyString()))
+                .thenReturn(mockObservable);
+        presenter.setNearbySearchDao(mockResult);
         presenter.searchNearby("location", 500, "key");
         verify(mockView, times(1)).showProgressDialog();
         verify(mockDisposable, times(1)).add(anyObject());
@@ -123,7 +151,8 @@ public class MyLocationPresenterTest {
 
         Response<NearbySearchDao> mockResponse = Response.success(mockResult);
         Observable<Response<NearbySearchDao>> mockObservable = Observable.just(mockResponse);
-        when(mockGoogleMapApi.nearbySearch(anyString(), anyInt(), anyString())).thenReturn(mockObservable);
+        when(mockGoogleMapApi.nearbySearch(anyString(), anyInt(), anyString(), anyString()))
+                .thenReturn(mockObservable);
         presenter.searchNearby("location", 500, "key");
         verify(mockView, times(1)).showProgressDialog();
         verify(mockDisposable, times(1)).add(anyObject());
@@ -145,7 +174,8 @@ public class MyLocationPresenterTest {
                 NearbySearchDao.class);
         Response<NearbySearchDao> mockResponse = Response.success(mockResult);
         Observable<Response<NearbySearchDao>> mockObservable = Observable.just(mockResponse);
-        when(mockGoogleMapApi.nearbySearch(anyString(), anyInt(), anyString())).thenReturn(mockObservable);
+        when(mockGoogleMapApi.nearbySearch(anyString(), anyInt(), anyString(), anyString()))
+                .thenReturn(mockObservable);
         presenter.searchNearby("location", 500, "key");
         verify(mockView, times(1)).showProgressDialog();
         verify(mockDisposable, times(1)).add(anyObject());
@@ -164,7 +194,8 @@ public class MyLocationPresenterTest {
     public void searchNearbyError() throws Exception {
         Response<NearbySearchDao> mockResponse = Response.error(500, responseBody);
         Observable<Response<NearbySearchDao>> mockObservable = Observable.just(mockResponse);
-        when(mockGoogleMapApi.nearbySearch(anyString(), anyInt(), anyString())).thenReturn(mockObservable);
+        when(mockGoogleMapApi.nearbySearch(anyString(), anyInt(), anyString(), anyString()))
+                .thenReturn(mockObservable);
         presenter.searchNearby("location", 500, "key");
         verify(mockView, times(1)).showProgressDialog();
         verify(mockDisposable, times(1)).add(anyObject());

@@ -9,9 +9,16 @@ class MainInterface {
 
     interface View extends BaseInterface.View {
 
+        void loadMoreError();
+
+        void loadMoreSuccess(List<ResultNearbySearchDao> list);
+
+        void loadMoreComplete();
     }
 
     interface Presenter {
+        void searchNearby(String location, int radius, String key);
+
         List<ResultNearbySearchDao> sortListByName(List<ResultNearbySearchDao> list);
     }
 }

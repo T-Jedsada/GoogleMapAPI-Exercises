@@ -21,6 +21,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.parceler.Parcels;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import butterknife.BindView;
@@ -191,5 +193,20 @@ public class MainActivity extends BaseActivity<MainPresenter> implements
         tvShowList.setText(state ? R.string.show_list : R.string.sort_by_name);
         ivSort.setEnabled(!state);
         ivSort.setAlpha(state ? 0f : 1f);
+    }
+
+    @Override
+    public void loadMoreError() {
+
+    }
+
+    @Override
+    public void loadMoreSuccess(List<ResultNearbySearchDao> list) {
+
+    }
+
+    @Override
+    public void loadMoreComplete() {
+
     }
 }
