@@ -12,10 +12,5 @@ public interface GoogleMapApi {
     Observable<Response<NearbySearchDao>> nearbySearch(@Query("location") String location,
                                                        @Query("radius") int radius,
                                                        @Query("key") String key,
-                                                       @Query("token") String token);
-
-    @GET("distancematrix/json?")
-    Observable<Response<NearbySearchDao>> distancematrix(@Query("origins") String origins,
-                                                         @Query("destinations") int radius,
-                                                         @Query("key") String key);
+                                                       @Query("pagetoken") String token);
 }

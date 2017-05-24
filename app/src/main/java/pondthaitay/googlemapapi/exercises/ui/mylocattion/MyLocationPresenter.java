@@ -51,14 +51,15 @@ public class MyLocationPresenter extends BasePresenter<MyLocationInterface.View>
 
     @Override
     public void onViewStop() {
-
+        if (disposables != null) disposables.clear();
+        nearbySearchDao = null;
     }
 
     @Override
     public void searchNearby(String location, int radius, String key) {
         if (getView() != null) {
             getView().showProgressDialog();
-            disposables.add(googleMapApi.nearbySearch(location, radius, key, getTokenNextPage())
+            disposables.add(googleMapApi.nearbySearch(location, radius, key, "")
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribeWith(new BaseSubscriber<>(this)));
@@ -84,11 +85,6 @@ public class MyLocationPresenter extends BasePresenter<MyLocationInterface.View>
             getView().hideProgressDialog();
             getView().showError(message);
         }
-    }
-
-    private String getTokenNextPage() {
-        if (nearbySearchDao == null) return "";
-        else return nearbySearchDao.getNextPageToken();
     }
 
     NearbySearchDao getNearbySearchDao() {

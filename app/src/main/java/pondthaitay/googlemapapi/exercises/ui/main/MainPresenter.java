@@ -9,14 +9,15 @@ import javax.inject.Inject;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
-import pondthaitay.googlemapapi.exercises.R;
 import pondthaitay.googlemapapi.exercises.api.BaseSubscriber;
 import pondthaitay.googlemapapi.exercises.api.dao.NearbySearchDao;
 import pondthaitay.googlemapapi.exercises.api.dao.ResultNearbySearchDao;
 import pondthaitay.googlemapapi.exercises.api.service.GoogleMapApi;
 import pondthaitay.googlemapapi.exercises.ui.base.BasePresenter;
+import timber.log.Timber;
 
-class MainPresenter extends BasePresenter<MainInterface.View> implements MainInterface.Presenter, BaseSubscriber.NetworkCallback {
+class MainPresenter extends BasePresenter<MainInterface.View> implements
+        MainInterface.Presenter, BaseSubscriber.NetworkCallback {
 
     private GoogleMapApi googleMapApi;
     private CompositeDisposable disposables;
@@ -56,16 +57,21 @@ class MainPresenter extends BasePresenter<MainInterface.View> implements MainInt
 
     @Override
     public void onViewStop() {
-
+        if (disposables != null) disposables.clear();
     }
 
     @Override
     public void searchNearby(String location, int radius, String key) {
         if (getView() != null && isEnableNextPage()) {
-            disposables.add(googleMapApi.nearbySearch(location, radius, key, getTokenNextPage())
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribeWith(new BaseSubscriber<>(this)));
+            if (getTokenNextPage().length() > 0) {
+                disposables.add(googleMapApi.nearbySearch(location, radius, key, getTokenNextPage())
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeWith(new BaseSubscriber<>(this)));
+            } else {
+                Timber.e("searchNearby");
+                getView().loadMoreComplete();
+            }
         }
     }
 
@@ -83,10 +89,10 @@ class MainPresenter extends BasePresenter<MainInterface.View> implements MainInt
     public <T> void onSuccess(T result) {
         if (getView() != null) {
             if (((NearbySearchDao) result).getList().isEmpty()) {
-                getView().loadMoreComplete();
-                getView().showError(R.string.please_try_again);
                 setEnableNextPage(false);
+                getView().loadMoreComplete();
             } else {
+                nearbySearchDao = null;
                 setEnableNextPage(true);
                 insertNearbySearchList((NearbySearchDao) result);
             }
@@ -96,21 +102,19 @@ class MainPresenter extends BasePresenter<MainInterface.View> implements MainInt
     @Override
     public void onFailure(String message) {
         if (getView() != null) {
+            nearbySearchDao = null;
             getView().loadMoreError();
-            getView().showError(message);
             setEnableNextPage(false);
         }
     }
 
     private void insertNearbySearchList(NearbySearchDao result) {
-        for (ResultNearbySearchDao dao : result.getList()) {
-            nearbySearchDao.getList().add(dao);
-        }
+        nearbySearchDao = result;
         getView().loadMoreSuccess(getNearbySearchDao().getList());
     }
 
     private String getTokenNextPage() {
-        if (nearbySearchDao == null) return "";
+        if (nearbySearchDao == null || nearbySearchDao.getNextPageToken() == null) return "";
         else return nearbySearchDao.getNextPageToken();
     }
 

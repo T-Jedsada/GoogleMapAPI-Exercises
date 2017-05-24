@@ -20,7 +20,6 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.TestObserver;
 import okhttp3.MediaType;
 import okhttp3.ResponseBody;
-import pondthaitay.googlemapapi.exercises.R;
 import pondthaitay.googlemapapi.exercises.api.dao.NearbySearchDao;
 import pondthaitay.googlemapapi.exercises.api.dao.ResultNearbySearchDao;
 import pondthaitay.googlemapapi.exercises.api.service.GoogleMapApi;
@@ -65,7 +64,6 @@ public class MainPresenterTest {
         presenter = new MainPresenter(mockGoogleMapApi);
         presenter.attachView(mockView);
         presenter.setDisposables(mockDisposable);
-        presenter.setNearbySearchDao(new NearbySearchDao());
 
         MainPresenter spyPresenter = spy(presenter);
         spyPresenter.setDisposables(mockDisposable);
@@ -128,6 +126,7 @@ public class MainPresenterTest {
 
     @Test
     public void searchNearbySuccess() throws Exception {
+        setupNextPageToken();
         NearbySearchDao mockResult = jsonUtil.getJsonToMock(
                 "nearby_search_success.json",
                 NearbySearchDao.class);
@@ -151,6 +150,7 @@ public class MainPresenterTest {
 
     @Test
     public void searchNearbyMoreSuccess() throws Exception {
+        setupNextPageToken();
         NearbySearchDao mockResult = jsonUtil.getJsonToMock(
                 "nearby_search_success.json",
                 NearbySearchDao.class);
@@ -174,6 +174,7 @@ public class MainPresenterTest {
 
     @Test
     public void searchNearbyEmpty() throws Exception {
+        setupNextPageToken();
         NearbySearchDao mockResult = jsonUtil.getJsonToMock(
                 "nearby_search_empty_result.json",
                 NearbySearchDao.class);
@@ -189,7 +190,6 @@ public class MainPresenterTest {
         testObserver.awaitTerminalEvent();
         testObserver.assertValue(response -> {
             verify(mockView, times(1)).loadMoreComplete();
-            verify(mockView, times(1)).showError(eq(R.string.please_try_again));
             assertThat(response, is(mockResponse));
             assertEquals(false, presenter.isEnableNextPage());
             return true;
@@ -198,6 +198,7 @@ public class MainPresenterTest {
 
     @Test
     public void searchNearbyAPIKeyInvalid() throws Exception {
+        setupNextPageToken();
         NearbySearchDao mockResult = jsonUtil.getJsonToMock(
                 "nearby_search_empty_result.json",
                 NearbySearchDao.class);
@@ -212,7 +213,6 @@ public class MainPresenterTest {
         testObserver.awaitTerminalEvent();
         testObserver.assertValue(response -> {
             verify(mockView, times(1)).loadMoreComplete();
-            verify(mockView, times(1)).showError(eq(R.string.please_try_again));
             assertThat(response, is(mockResponse));
             assertEquals(false, presenter.isEnableNextPage());
             return true;
@@ -221,6 +221,7 @@ public class MainPresenterTest {
 
     @Test
     public void searchNearbyError() throws Exception {
+        setupNextPageToken();
         Response<NearbySearchDao> mockResponse = Response.error(500, responseBody);
         Observable<Response<NearbySearchDao>> mockObservable = Observable.just(mockResponse);
         when(mockGoogleMapApi.nearbySearch(anyString(), anyInt(), anyString(), anyString()))
@@ -232,11 +233,30 @@ public class MainPresenterTest {
         testObserver.awaitTerminalEvent();
         testObserver.assertValue(response -> {
             verify(mockView, times(1)).loadMoreError();
-            verify(mockView, times(1)).showError(eq(response.message()));
             assertThat(response, is(mockResponse));
             assertEquals(false, presenter.isEnableNextPage());
             return true;
         });
+    }
+
+    @Test
+    public void searchNearbyComplete() throws Exception {
+        presenter.setNearbySearchDao(null);
+        NearbySearchDao mockResult = jsonUtil.getJsonToMock(
+                "nearby_search_empty_result.json",
+                NearbySearchDao.class);
+        Response<NearbySearchDao> mockResponse = Response.success(mockResult);
+        Observable<Response<NearbySearchDao>> mockObservable = Observable.just(mockResponse);
+        when(mockGoogleMapApi.nearbySearch(anyString(), anyInt(), anyString(), anyString()))
+                .thenReturn(mockObservable);
+        presenter.searchNearby("location", 500, "key");
+        verify(mockView, times(1)).loadMoreComplete();
+    }
+
+    private void setupNextPageToken(){
+        NearbySearchDao nearbySearchDao = new NearbySearchDao();
+        nearbySearchDao.setNextPageToken("jedsada");
+        presenter.setNearbySearchDao(nearbySearchDao);
     }
 
     private List<ResultNearbySearchDao> getListNameEn() {

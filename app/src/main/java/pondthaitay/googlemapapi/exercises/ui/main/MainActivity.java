@@ -7,6 +7,7 @@ import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -115,7 +116,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements
         ivSort.setEnabled(false);
         ivSort.setOnClickListener(v -> {
             nearbySearchDao.setList(getPresenter().sortListByName(nearbySearchDao.getList()));
-            listPlaceAdapter.setData(nearbySearchDao, getLastKnownLocation());
+            listPlaceAdapter.setData(nearbySearchDao, getLastKnownLocation(), !TextUtils.isEmpty(nearbySearchDao.getNextPageToken()));
         });
         list.setAdapter(listPlaceAdapter);
         list.setLayoutManager(new LinearLayoutManager(this));
@@ -125,20 +126,24 @@ public class MainActivity extends BaseActivity<MainPresenter> implements
     @Override
     protected void initialize() {
         nearbySearchDao = Parcels.unwrap(getIntent().getParcelableExtra(KEY_DATA));
-        listPlaceAdapter.setData(nearbySearchDao, getLastKnownLocation());
+        getPresenter().setNearbySearchDao(nearbySearchDao);
+        listPlaceAdapter.setData(nearbySearchDao,
+                getLastKnownLocation(),
+                !TextUtils.isEmpty(nearbySearchDao.getNextPageToken()));
     }
 
     @Override
     protected void saveInstanceState(Bundle outState) {
-        outState.putParcelable(KEY_DATA, Parcels.wrap(nearbySearchDao));
+        outState.putParcelable(KEY_DATA, Parcels.wrap(listPlaceAdapter.getData()));
         outState.putBoolean(KEY_STATE_SORT, ivSort.isEnabled());
     }
 
     @Override
     public void restoreView(Bundle savedInstanceState) {
-        nearbySearchDao = Parcels.unwrap(savedInstanceState.getParcelable(KEY_DATA));
-        listPlaceAdapter.setData(nearbySearchDao, getLastKnownLocation());
         setStateSort(!savedInstanceState.getBoolean(KEY_STATE_SORT, false));
+        nearbySearchDao = Parcels.unwrap(savedInstanceState.getParcelable(KEY_DATA));
+        listPlaceAdapter.setData(nearbySearchDao,
+                getLastKnownLocation(), false);
     }
 
     @Override
@@ -162,10 +167,31 @@ public class MainActivity extends BaseActivity<MainPresenter> implements
     }
 
     @Override
+    public void loadMore() {
+        getPresenter().searchNearby(nearbySearchDao.getTargetLoc(),
+                500, getString(R.string.google_maps_key));
+    }
+
+    @Override
     public void onPlaceItemClick(ResultNearbySearchDao dao) {
         LatLng latLng = new LatLng(dao.getGeometryDao().getLocation().getLat(),
                 dao.getGeometryDao().getLocation().getLng());
         mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+    }
+
+    @Override
+    public void loadMoreError() {
+        listPlaceAdapter.setNextItemAvailable(false);
+    }
+
+    @Override
+    public void loadMoreSuccess(List<ResultNearbySearchDao> list) {
+        listPlaceAdapter.addNewPlace(list, true);
+    }
+
+    @Override
+    public void loadMoreComplete() {
+        listPlaceAdapter.setNextItemAvailable(false);
     }
 
     private void setupMarker() {
@@ -193,20 +219,5 @@ public class MainActivity extends BaseActivity<MainPresenter> implements
         tvShowList.setText(state ? R.string.show_list : R.string.sort_by_name);
         ivSort.setEnabled(!state);
         ivSort.setAlpha(state ? 0f : 1f);
-    }
-
-    @Override
-    public void loadMoreError() {
-
-    }
-
-    @Override
-    public void loadMoreSuccess(List<ResultNearbySearchDao> list) {
-
-    }
-
-    @Override
-    public void loadMoreComplete() {
-
     }
 }

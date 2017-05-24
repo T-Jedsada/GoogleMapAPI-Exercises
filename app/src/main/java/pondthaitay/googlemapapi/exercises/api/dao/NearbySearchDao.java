@@ -16,6 +16,7 @@ public class NearbySearchDao {
     private List<ResultNearbySearchDao> list = new ArrayList<>();
     @SerializedName("status")
     private String status;
+    private String targetLoc;
 
     public String getNextPageToken() {
         return nextPageToken;
@@ -39,5 +40,13 @@ public class NearbySearchDao {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getTargetLoc() {
+        return targetLoc;
+    }
+
+    public void setTargetLoc(String targetLoc) {
+        this.targetLoc = targetLoc;
     }
 }

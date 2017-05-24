@@ -149,6 +149,7 @@ public class MyLocationActivity extends BaseActivity<MyLocationPresenter> implem
 
     @Override
     public void loadNearbySearchSuccess(NearbySearchDao result) {
+        result.setTargetLoc(getCenterLatLngPosition());
         startActivity(new Intent(this, MainActivity.class)
                 .putExtra("nearby_search_data", Parcels.wrap(result)));
     }
