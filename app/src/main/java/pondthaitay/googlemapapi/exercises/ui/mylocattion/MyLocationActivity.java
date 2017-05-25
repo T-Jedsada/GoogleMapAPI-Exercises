@@ -2,7 +2,6 @@ package pondthaitay.googlemapapi.exercises.ui.mylocattion;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.AppCompatButton;
@@ -11,8 +10,7 @@ import android.view.View;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-
-import org.parceler.Parcels;
+import com.google.gson.Gson;
 
 import javax.inject.Inject;
 
@@ -26,9 +24,11 @@ import permissions.dispatcher.RuntimePermissions;
 import pondthaitay.googlemapapi.exercises.ApplicationComponent;
 import pondthaitay.googlemapapi.exercises.R;
 import pondthaitay.googlemapapi.exercises.api.dao.NearbySearchDao;
-import pondthaitay.googlemapapi.exercises.ui.main.MainActivity;
 import pondthaitay.googlemapapi.exercises.ui.base.BaseActivity;
+import pondthaitay.googlemapapi.exercises.ui.mylocattion.database.LocationDatabase;
+import pondthaitay.googlemapapi.exercises.ui.mylocattion.database.LocationModel;
 import pondthaitay.googlemapapi.exercises.utils.DialogUtil;
+import timber.log.Timber;
 
 @RuntimePermissions
 public class MyLocationActivity extends BaseActivity<MyLocationPresenter> implements
@@ -36,12 +36,17 @@ public class MyLocationActivity extends BaseActivity<MyLocationPresenter> implem
 
     @Inject
     DialogUtil dialogUtil;
+    @Inject
+    LocationDatabase database;
+    @Inject
+    Gson gson;
 
     @BindView(R.id.progress_bar)
     View progressBar;
     @BindView(R.id.btn_search)
     AppCompatButton btnSearch;
 
+    private static final String KEY_DATA = "nearby_search_data";
     private GoogleMap mGoogleMap;
     private SupportMapFragment mapFragment;
 
@@ -147,10 +152,34 @@ public class MyLocationActivity extends BaseActivity<MyLocationPresenter> implem
                 mGoogleMap.getCameraPosition().target.longitude);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void loadNearbySearchSuccess(NearbySearchDao result) {
         result.setTargetLoc(getCenterLatLngPosition());
-        startActivity(new Intent(this, MainActivity.class)
-                .putExtra("nearby_search_data", Parcels.wrap(result)));
+        LocationModel model = database.queryDataByLocation(result.getTargetLoc());
+
+        if (model == null) {
+            Timber.e("null");
+            LocationModel locationModel = new LocationModel();
+            locationModel.location = "18.774999,98.948900";
+            locationModel.jsonData = gson.toJson(result);
+            database.insertLocation(locationModel);
+        }
+
+        Timber.e(String.valueOf(database.queryIdByLocation(result.getTargetLoc()).jsonData));
+
+//        startActivity(new Intent(this, MainActivity.class)
+//                .putExtra(KEY_DATA, Parcels.wrap(result))
+//                .putExtra("id", locationModel.getModelAdapter().getAutoIncrementingId(locationModel)));
+    }
+
+    @Override
+    public void loadNearbySearchFromDB() {
+//        LocationModel query = database.queryDataByLocation("18.774999,98.948900");
+//        if (query != null) {
+//            NearbySearchDao result = gson.fromJson(query.getJsonData(), NearbySearchDao.class);
+//            startActivity(new Intent(this, MainActivity.class)
+//                    .putExtra(KEY_DATA, Parcels.wrap(result)));
+//        }
     }
 }

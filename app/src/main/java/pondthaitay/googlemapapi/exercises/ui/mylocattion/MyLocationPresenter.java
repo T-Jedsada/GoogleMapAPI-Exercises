@@ -84,6 +84,7 @@ public class MyLocationPresenter extends BasePresenter<MyLocationInterface.View>
         if (getView() != null) {
             getView().hideProgressDialog();
             getView().showError(message);
+            getView().loadNearbySearchFromDB();
         }
     }
 

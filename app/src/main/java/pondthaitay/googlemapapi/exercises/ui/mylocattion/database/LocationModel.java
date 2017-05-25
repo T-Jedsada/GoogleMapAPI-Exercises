@@ -8,9 +8,9 @@ import com.raizlabs.android.dbflow.annotation.Table;
 public class LocationModel {
 
     @PrimaryKey(autoincrement = true)
-    int id;
+    public int id;
     @Column
-    String location;
+    public String location;
     @Column
-    String jsonData;
+    public String jsonData;
 }

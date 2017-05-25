@@ -8,6 +8,8 @@ class MyLocationInterface {
     interface View extends BaseInterface.View {
 
         void loadNearbySearchSuccess(NearbySearchDao result);
+
+        void loadNearbySearchFromDB();
     }
 
     interface Presenter {

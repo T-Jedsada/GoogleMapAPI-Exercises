@@ -1,6 +1,5 @@
 package pondthaitay.googlemapapi.exercises.ui.main;
 
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
@@ -24,6 +23,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.gson.Gson;
 
 import org.parceler.Parcels;
 
@@ -38,13 +38,16 @@ import pondthaitay.googlemapapi.exercises.api.dao.NearbySearchDao;
 import pondthaitay.googlemapapi.exercises.api.dao.ResultNearbySearchDao;
 import pondthaitay.googlemapapi.exercises.ui.base.BaseActivity;
 import pondthaitay.googlemapapi.exercises.ui.main.adapter.ListPlaceAdapter;
+import pondthaitay.googlemapapi.exercises.ui.mylocattion.database.LocationDatabase;
 import pondthaitay.googlemapapi.exercises.ui.view.SlidingUpPanelLayout;
 
 public class MainActivity extends BaseActivity<MainPresenter> implements
         MainInterface.View, OnMapReadyCallback, ListPlaceAdapter.LisPlaceListener {
 
     @Inject
-    SharedPreferences spf;
+    LocationDatabase database;
+    @Inject
+    Gson gson;
 
     @BindView(R.id.sliding_layout)
     SlidingUpPanelLayout slidingUpPanelLayout;
@@ -61,6 +64,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements
     private NearbySearchDao nearbySearchDao;
     private GoogleMap mGoogleMap;
     private ListPlaceAdapter adapter;
+    private int id;
 
     @Override
     protected int layoutToInflate() {
@@ -128,6 +132,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements
 
     @Override
     protected void initialize() {
+        id = getIntent().getIntExtra("id", 0);
         nearbySearchDao = Parcels.unwrap(getIntent().getParcelableExtra(KEY_DATA));
         getPresenter().setNearbySearchDao(nearbySearchDao);
         adapter.setData(nearbySearchDao,
@@ -141,10 +146,12 @@ public class MainActivity extends BaseActivity<MainPresenter> implements
         outState.putString(KEY_NEXT_PAGE_TOKEN,
                 getPresenter().getNearbySearchDao().getNextPageToken());
         outState.putBoolean(KEY_STATE_SORT, ivSort.isEnabled());
+        outState.putInt("id", id);
     }
 
     @Override
     public void restoreView(Bundle savedInstanceState) {
+        id = savedInstanceState.getInt("id", 0);
         String token = savedInstanceState.getString(KEY_NEXT_PAGE_TOKEN, "");
         setStateSort(!savedInstanceState.getBoolean(KEY_STATE_SORT, false));
         nearbySearchDao = Parcels.unwrap(savedInstanceState.getParcelable(KEY_DATA));
@@ -188,17 +195,20 @@ public class MainActivity extends BaseActivity<MainPresenter> implements
     @Override
     public void loadMoreError() {
         adapter.setNextItemAvailable(false);
+        saveToLocalDatabase();
     }
 
     @Override
     public void loadMoreSuccess(NearbySearchDao nearbySearchDao) {
         adapter.addNewPlace(nearbySearchDao.getList(), true);
         setupNewMarker(nearbySearchDao.getList());
+        saveToLocalDatabase();
     }
 
     @Override
     public void loadMoreComplete() {
         adapter.setNextItemAvailable(false);
+        saveToLocalDatabase();
     }
 
     @Override
@@ -209,15 +219,18 @@ public class MainActivity extends BaseActivity<MainPresenter> implements
 
     private void setupMarker(NearbySearchDao nearbySearchDao) {
         if (nearbySearchDao != null) {
+            int index = 0;
             LatLngBounds.Builder builder = new LatLngBounds.Builder();
             for (ResultNearbySearchDao dao : nearbySearchDao.getList()) {
                 LatLng latlng = new LatLng(dao.getGeometryDao().getLocation().getLat(),
                         dao.getGeometryDao().getLocation().getLng());
                 MarkerOptions markerOptions;
                 markerOptions = new MarkerOptions().position(latlng)
-                        .icon(BitmapDescriptorFactory.defaultMarker());
+                        .icon(index <= 20 ? BitmapDescriptorFactory.defaultMarker() :
+                                BitmapDescriptorFactory.fromBitmap(createDot()));
                 mGoogleMap.addMarker(markerOptions);
                 builder.include(markerOptions.getPosition());
+                index++;
             }
             mGoogleMap.setOnMapLoadedCallback(() ->
                     mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(builder.build(), 50)));
@@ -256,5 +269,15 @@ public class MainActivity extends BaseActivity<MainPresenter> implements
             return mDotMarkerBitmap;
         }
         return null;
+    }
+
+    private void saveToLocalDatabase() {
+//        NearbySearchDao dao = new NearbySearchDao();
+//        dao.setList(adapter.getData().getList());
+//        dao.setNextPageToken(getPresenter().getTokenNextPage());
+//        LocationModel model = new LocationModel();
+//        model.setId(id);
+//        model.setLocation(nearbySearchDao.getTargetLoc());
+//        model.setJsonData(gson.toJson(dao));
     }
 }
