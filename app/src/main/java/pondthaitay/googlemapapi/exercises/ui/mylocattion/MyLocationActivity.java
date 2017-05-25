@@ -2,6 +2,7 @@ package pondthaitay.googlemapapi.exercises.ui.mylocattion;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.AppCompatButton;
@@ -11,6 +12,8 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.gson.Gson;
+
+import org.parceler.Parcels;
 
 import javax.inject.Inject;
 
@@ -25,10 +28,9 @@ import pondthaitay.googlemapapi.exercises.ApplicationComponent;
 import pondthaitay.googlemapapi.exercises.R;
 import pondthaitay.googlemapapi.exercises.api.dao.NearbySearchDao;
 import pondthaitay.googlemapapi.exercises.ui.base.BaseActivity;
-import pondthaitay.googlemapapi.exercises.ui.mylocattion.database.LocationDatabase;
-import pondthaitay.googlemapapi.exercises.ui.mylocattion.database.LocationModel;
+import pondthaitay.googlemapapi.exercises.ui.main.MainActivity;
 import pondthaitay.googlemapapi.exercises.utils.DialogUtil;
-import timber.log.Timber;
+import pondthaitay.googlemapapi.exercises.utils.LocationDatabase;
 
 @RuntimePermissions
 public class MyLocationActivity extends BaseActivity<MyLocationPresenter> implements
@@ -75,8 +77,14 @@ public class MyLocationActivity extends BaseActivity<MyLocationPresenter> implem
     protected void bindView() {
         mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
-        btnSearch.setOnClickListener(v -> getPresenter().searchNearby(getCenterLatLngPosition(),
-                500, getString(R.string.google_maps_key)));
+        btnSearch.setOnClickListener(v -> {
+            if (database.getJsonData(getCenterLatLngPosition()) == null) {
+                getPresenter().searchNearby(getCenterLatLngPosition(),
+                        500, getString(R.string.google_maps_key));
+            } else {
+                loadNearbySearchFromDB();
+            }
+        });
     }
 
     @Override
@@ -156,30 +164,19 @@ public class MyLocationActivity extends BaseActivity<MyLocationPresenter> implem
     @Override
     public void loadNearbySearchSuccess(NearbySearchDao result) {
         result.setTargetLoc(getCenterLatLngPosition());
-        LocationModel model = database.queryDataByLocation(result.getTargetLoc());
-
-        if (model == null) {
-            Timber.e("null");
-            LocationModel locationModel = new LocationModel();
-            locationModel.location = "18.774999,98.948900";
-            locationModel.jsonData = gson.toJson(result);
-            database.insertLocation(locationModel);
+        if (database.getJsonData(result.getTargetLoc()) == null) {
+            database.setJsonData(result.getTargetLoc(), result);
         }
-
-        Timber.e(String.valueOf(database.queryIdByLocation(result.getTargetLoc()).jsonData));
-
-//        startActivity(new Intent(this, MainActivity.class)
-//                .putExtra(KEY_DATA, Parcels.wrap(result))
-//                .putExtra("id", locationModel.getModelAdapter().getAutoIncrementingId(locationModel)));
+        startActivity(new Intent(this, MainActivity.class)
+                .putExtra(KEY_DATA, Parcels.wrap(result)));
     }
 
     @Override
     public void loadNearbySearchFromDB() {
-//        LocationModel query = database.queryDataByLocation("18.774999,98.948900");
-//        if (query != null) {
-//            NearbySearchDao result = gson.fromJson(query.getJsonData(), NearbySearchDao.class);
-//            startActivity(new Intent(this, MainActivity.class)
-//                    .putExtra(KEY_DATA, Parcels.wrap(result)));
-//        }
+        if (database.getJsonData(getCenterLatLngPosition()) != null) {
+            NearbySearchDao result = database.getJsonData(getCenterLatLngPosition());
+            startActivity(new Intent(this, MainActivity.class)
+                    .putExtra(KEY_DATA, Parcels.wrap(result)));
+        }
     }
 }

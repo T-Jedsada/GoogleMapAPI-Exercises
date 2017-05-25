@@ -126,7 +126,7 @@ class MainPresenter extends BasePresenter<MainInterface.View> implements
 
     private void setNearbySearchDaoLoadComplete(boolean error) {
         setEnableNextPage(false);
-        nearbySearchDao.setNextPageToken(null);
+        if (!error) nearbySearchDao.setNextPageToken(null);
         setNearbySearchDao(nearbySearchDao);
         if (error) {
             getView().loadMoreError();

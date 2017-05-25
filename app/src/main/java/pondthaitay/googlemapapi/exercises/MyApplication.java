@@ -5,9 +5,6 @@ import android.app.Application;
 import android.os.Build;
 import android.os.StrictMode;
 
-import com.raizlabs.android.dbflow.config.FlowConfig;
-import com.raizlabs.android.dbflow.config.FlowManager;
-
 import butterknife.ButterKnife;
 import pondthaitay.googlemapapi.exercises.module.AndroidModule;
 import pondthaitay.googlemapapi.exercises.module.ApiModule;
@@ -24,7 +21,6 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         ButterKnife.setDebug(BuildConfig.DEBUG);
-        FlowManager.init(new FlowConfig.Builder(this).build());
         initDependencyInjection();
         if (BuildConfig.DEBUG) {
             Timber.plant(new Timber.DebugTree());

@@ -38,8 +38,8 @@ import pondthaitay.googlemapapi.exercises.api.dao.NearbySearchDao;
 import pondthaitay.googlemapapi.exercises.api.dao.ResultNearbySearchDao;
 import pondthaitay.googlemapapi.exercises.ui.base.BaseActivity;
 import pondthaitay.googlemapapi.exercises.ui.main.adapter.ListPlaceAdapter;
-import pondthaitay.googlemapapi.exercises.ui.mylocattion.database.LocationDatabase;
 import pondthaitay.googlemapapi.exercises.ui.view.SlidingUpPanelLayout;
+import pondthaitay.googlemapapi.exercises.utils.LocationDatabase;
 
 public class MainActivity extends BaseActivity<MainPresenter> implements
         MainInterface.View, OnMapReadyCallback, ListPlaceAdapter.LisPlaceListener {
@@ -272,12 +272,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements
     }
 
     private void saveToLocalDatabase() {
-//        NearbySearchDao dao = new NearbySearchDao();
-//        dao.setList(adapter.getData().getList());
-//        dao.setNextPageToken(getPresenter().getTokenNextPage());
-//        LocationModel model = new LocationModel();
-//        model.setId(id);
-//        model.setLocation(nearbySearchDao.getTargetLoc());
-//        model.setJsonData(gson.toJson(dao));
+        NearbySearchDao dao = new NearbySearchDao();
+        dao.setList(adapter.getData().getList());
+        dao.setNextPageToken(getPresenter().getTokenNextPage());
+        database.setJsonData(nearbySearchDao.getTargetLoc(), dao);
     }
 }

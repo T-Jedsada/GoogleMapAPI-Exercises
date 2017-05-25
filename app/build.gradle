@@ -79,7 +79,6 @@ ext {
     powermockVersion = "1.6.6"
     googlePlayVersion = "10.2.6"
     permisstionDispatcherVersion = "2.4.0"
-    dbflowVersion = "4.0.2"
 }
 
 dependencies {
@@ -126,8 +125,4 @@ dependencies {
         exclude module: "support-v13"
     }
     annotationProcessor "com.github.hotchemi:permissionsdispatcher-processor:$permisstionDispatcherVersion"
-
-    annotationProcessor "com.github.Raizlabs.DBFlow:dbflow-processor:$dbflowVersion"
-    compile "com.github.Raizlabs.DBFlow:dbflow-core:$dbflowVersion"
-    compile "com.github.Raizlabs.DBFlow:dbflow:$dbflowVersion"
 }
