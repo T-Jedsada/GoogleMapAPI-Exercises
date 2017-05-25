@@ -10,7 +10,6 @@ import java.util.List;
 import pondthaitay.googlemapapi.exercises.R;
 import pondthaitay.googlemapapi.exercises.api.dao.NearbySearchDao;
 import pondthaitay.googlemapapi.exercises.api.dao.ResultNearbySearchDao;
-import timber.log.Timber;
 
 public class ListPlaceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements
         ListPlaceViewHolder.LisPlaceViewHolderListener {
@@ -33,7 +32,6 @@ public class ListPlaceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         this.dao = data;
         this.myLocation = myLocation;
         this.isNextItemAvailable = nextPage;
-        Timber.e("%b", nextPage);
         notifyDataSetChanged();
     }
 

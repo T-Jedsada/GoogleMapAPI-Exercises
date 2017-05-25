@@ -25,6 +25,7 @@ import pondthaitay.googlemapapi.exercises.api.dao.ResultNearbySearchDao;
 import pondthaitay.googlemapapi.exercises.api.service.GoogleMapApi;
 import pondthaitay.googlemapapi.exercises.utils.JsonMockUtility;
 import pondthaitay.googlemapapi.exercises.utils.RxSchedulersOverrideRule;
+import pondthaitay.googlemapapi.exercises.utils.SortUtil;
 import retrofit2.Response;
 
 import static junit.framework.Assert.assertEquals;
@@ -51,23 +52,27 @@ public class MainPresenterTest {
     @Mock
     GoogleMapApi mockGoogleMapApi;
     @Mock
-    private CompositeDisposable mockDisposable;
+    CompositeDisposable mockDisposable;
 
     private MainPresenter presenter;
     private JsonMockUtility jsonUtil;
     private ResponseBody responseBody;
+    private SortUtil sortUtil;
 
     @Before
     public void setUp() throws Exception {
         jsonUtil = new JsonMockUtility();
         MockitoAnnotations.initMocks(this);
-        presenter = new MainPresenter(mockGoogleMapApi);
+        sortUtil = new SortUtil();
+        presenter = new MainPresenter(mockGoogleMapApi, sortUtil);
         presenter.attachView(mockView);
         presenter.setDisposables(mockDisposable);
+        presenter.setSortUtil(sortUtil);
 
         MainPresenter spyPresenter = spy(presenter);
         spyPresenter.setDisposables(mockDisposable);
         spyPresenter.attachView(mockView);
+        spyPresenter.setSortUtil(sortUtil);
 
         responseBody = ResponseBody.create(MediaType.parse("application/json"), "");
     }
@@ -119,6 +124,50 @@ public class MainPresenterTest {
     }
 
     @Test
+    public void testSortListRxByNameEn() throws Exception {
+        NearbySearchDao mockResult = jsonUtil.getJsonToMock(
+                "nearby_search_success.json",
+                NearbySearchDao.class);
+        presenter.setNearbySearchDao(mockResult);
+        presenter.sortListByNameRx(getListNameTh());
+        verify(mockView, times(1)).showProgressDialog();
+        TestObserver<List<ResultNearbySearchDao>> testObserver = sortUtil.sortListByRx(getListNameEn()).test();
+        testObserver.assertComplete();
+        testObserver.assertOf(list -> {
+            String[] az = new String[6];
+            String[] azActuals = {"A", "B", "C", "D", "F", "a"};
+            for (int i = 0; i < list.values().get(0).size(); i++) {
+                az[i] = list.values().get(0).get(i).getName();
+            }
+            verify(mockView, times(1)).hideProgressDialog();
+            verify(mockView, times(1)).sortSuccess(eq(presenter.getNearbySearchDao()));
+            Assert.assertArrayEquals(az, azActuals);
+        });
+    }
+
+    @Test
+    public void testSortListRxByNameTh() throws Exception {
+        NearbySearchDao mockResult = jsonUtil.getJsonToMock(
+                "nearby_search_success.json",
+                NearbySearchDao.class);
+        presenter.setNearbySearchDao(mockResult);
+        presenter.sortListByNameRx(getListNameTh());
+        verify(mockView, times(1)).showProgressDialog();
+        TestObserver<List<ResultNearbySearchDao>> testObserver = sortUtil.sortListByRx(getListNameTh()).test();
+        testObserver.assertComplete();
+        testObserver.assertOf(list -> {
+            String[] az = new String[6];
+            String[] azActuals = {"y", "z", "ก", "ข", "ค", "ง"};
+            for (int i = 0; i < list.values().get(0).size(); i++) {
+                az[i] = list.values().get(0).get(i).getName();
+            }
+            verify(mockView, times(1)).hideProgressDialog();
+            verify(mockView, times(1)).sortSuccess(eq(presenter.getNearbySearchDao()));
+            Assert.assertArrayEquals(az, azActuals);
+        });
+    }
+
+    @Test
     public void testSortListEmpty() throws Exception {
         List<ResultNearbySearchDao> list = presenter.sortListByName(new ArrayList<>());
         Assert.assertEquals(0, list.size());
@@ -141,7 +190,7 @@ public class MainPresenterTest {
         TestObserver<Response<NearbySearchDao>> testObserver = mockObservable.test();
         testObserver.awaitTerminalEvent();
         testObserver.assertValue(response -> {
-            verify(mockView, times(1)).loadMoreSuccess(eq(mockResult.getList()));
+            verify(mockView, times(1)).loadMoreSuccess(eq(mockResult));
             assertThat(response, is(mockResponse));
             assertEquals(true, presenter.isEnableNextPage());
             return true;
@@ -165,7 +214,7 @@ public class MainPresenterTest {
         TestObserver<Response<NearbySearchDao>> testObserver = mockObservable.test();
         testObserver.awaitTerminalEvent();
         testObserver.assertValue(response -> {
-            verify(mockView, times(1)).loadMoreSuccess(eq(mockResult.getList()));
+            verify(mockView, times(1)).loadMoreSuccess(eq(mockResult));
             assertThat(response, is(mockResponse));
             assertEquals(true, presenter.isEnableNextPage());
             return true;
@@ -253,7 +302,7 @@ public class MainPresenterTest {
         verify(mockView, times(1)).loadMoreComplete();
     }
 
-    private void setupNextPageToken(){
+    private void setupNextPageToken() {
         NearbySearchDao nearbySearchDao = new NearbySearchDao();
         nearbySearchDao.setNextPageToken("jedsada");
         presenter.setNearbySearchDao(nearbySearchDao);

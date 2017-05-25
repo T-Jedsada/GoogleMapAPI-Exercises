@@ -22,8 +22,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.parceler.Parcels;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import butterknife.BindView;
@@ -52,9 +50,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements
 
     private static final String KEY_DATA = "nearby_search_data";
     private static final String KEY_STATE_SORT = "state_sort";
+    private static final String KEY_NEXT_PAGE_TOKEN = "key_next_page_token";
     private NearbySearchDao nearbySearchDao;
     private GoogleMap mGoogleMap;
-    private ListPlaceAdapter listPlaceAdapter;
+    private ListPlaceAdapter adapter;
 
     @Override
     protected int layoutToInflate() {
@@ -99,8 +98,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements
 
     @Override
     protected void setupInstance() {
-        listPlaceAdapter = new ListPlaceAdapter();
-        listPlaceAdapter.setListener(this);
+        adapter = new ListPlaceAdapter();
+        adapter.setListener(this);
     }
 
     @Override
@@ -114,11 +113,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements
                 slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED));
         ivSort.setAlpha(0f);
         ivSort.setEnabled(false);
-        ivSort.setOnClickListener(v -> {
-            nearbySearchDao.setList(getPresenter().sortListByName(nearbySearchDao.getList()));
-            listPlaceAdapter.setData(nearbySearchDao, getLastKnownLocation(), !TextUtils.isEmpty(nearbySearchDao.getNextPageToken()));
-        });
-        list.setAdapter(listPlaceAdapter);
+        ivSort.setOnClickListener(v -> getPresenter().sortListByNameRx(adapter.getData().getList()));
+        list.setAdapter(adapter);
         list.setLayoutManager(new LinearLayoutManager(this));
         list.setHasFixedSize(false);
     }
@@ -127,23 +123,28 @@ public class MainActivity extends BaseActivity<MainPresenter> implements
     protected void initialize() {
         nearbySearchDao = Parcels.unwrap(getIntent().getParcelableExtra(KEY_DATA));
         getPresenter().setNearbySearchDao(nearbySearchDao);
-        listPlaceAdapter.setData(nearbySearchDao,
+        adapter.setData(nearbySearchDao,
                 getLastKnownLocation(),
                 !TextUtils.isEmpty(nearbySearchDao.getNextPageToken()));
     }
 
     @Override
     protected void saveInstanceState(Bundle outState) {
-        outState.putParcelable(KEY_DATA, Parcels.wrap(listPlaceAdapter.getData()));
+        outState.putParcelable(KEY_DATA, Parcels.wrap(adapter.getData()));
+        outState.putString(KEY_NEXT_PAGE_TOKEN,
+                getPresenter().getNearbySearchDao().getNextPageToken());
         outState.putBoolean(KEY_STATE_SORT, ivSort.isEnabled());
     }
 
     @Override
     public void restoreView(Bundle savedInstanceState) {
+        String token = savedInstanceState.getString(KEY_NEXT_PAGE_TOKEN, "");
         setStateSort(!savedInstanceState.getBoolean(KEY_STATE_SORT, false));
         nearbySearchDao = Parcels.unwrap(savedInstanceState.getParcelable(KEY_DATA));
-        listPlaceAdapter.setData(nearbySearchDao,
-                getLastKnownLocation(), false);
+        nearbySearchDao.setNextPageToken(token);
+        getPresenter().setNearbySearchDao(nearbySearchDao);
+        adapter.setData(nearbySearchDao, getLastKnownLocation(),
+                !TextUtils.isEmpty(nearbySearchDao.getNextPageToken()));
     }
 
     @Override
@@ -163,7 +164,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements
         mGoogleMap.setTrafficEnabled(true);
         enableMyLocationMap(mGoogleMap);
         moveCameraToMyLocation(mGoogleMap);
-        setupMarker();
+        setupMarker(nearbySearchDao);
     }
 
     @Override
@@ -181,21 +182,29 @@ public class MainActivity extends BaseActivity<MainPresenter> implements
 
     @Override
     public void loadMoreError() {
-        listPlaceAdapter.setNextItemAvailable(false);
+        adapter.setNextItemAvailable(false);
     }
 
     @Override
-    public void loadMoreSuccess(List<ResultNearbySearchDao> list) {
-        listPlaceAdapter.addNewPlace(list, true);
+    public void loadMoreSuccess(NearbySearchDao nearbySearchDao) {
+        adapter.addNewPlace(nearbySearchDao.getList(), true);
+        setupMarker(adapter.getData());
     }
 
     @Override
     public void loadMoreComplete() {
-        listPlaceAdapter.setNextItemAvailable(false);
+        adapter.setNextItemAvailable(false);
     }
 
-    private void setupMarker() {
+    @Override
+    public void sortSuccess(NearbySearchDao dao) {
+        adapter.setData(dao, getLastKnownLocation(),
+                !TextUtils.isEmpty(getPresenter().getTokenNextPage()));
+    }
+
+    private void setupMarker(NearbySearchDao nearbySearchDao) {
         if (nearbySearchDao != null) {
+            mGoogleMap.clear();
             int index = 0;
             LatLngBounds.Builder builder = new LatLngBounds.Builder();
             for (ResultNearbySearchDao dao : nearbySearchDao.getList()) {
@@ -209,7 +218,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements
                 builder.include(markerOptions.getPosition());
                 index++;
             }
-
             mGoogleMap.setOnMapLoadedCallback(() ->
                     mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(builder.build(), 50)));
         }

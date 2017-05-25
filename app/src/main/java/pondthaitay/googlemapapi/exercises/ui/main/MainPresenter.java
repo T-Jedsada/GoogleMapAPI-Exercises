@@ -1,7 +1,5 @@
 package pondthaitay.googlemapapi.exercises.ui.main;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -14,7 +12,7 @@ import pondthaitay.googlemapapi.exercises.api.dao.NearbySearchDao;
 import pondthaitay.googlemapapi.exercises.api.dao.ResultNearbySearchDao;
 import pondthaitay.googlemapapi.exercises.api.service.GoogleMapApi;
 import pondthaitay.googlemapapi.exercises.ui.base.BasePresenter;
-import timber.log.Timber;
+import pondthaitay.googlemapapi.exercises.utils.SortUtil;
 
 class MainPresenter extends BasePresenter<MainInterface.View> implements
         MainInterface.Presenter, BaseSubscriber.NetworkCallback {
@@ -23,11 +21,13 @@ class MainPresenter extends BasePresenter<MainInterface.View> implements
     private CompositeDisposable disposables;
     private NearbySearchDao nearbySearchDao;
     private boolean isEnableNextPage = true;
+    private SortUtil sortUtil;
 
     @Inject
-    MainPresenter(GoogleMapApi api) {
+    MainPresenter(GoogleMapApi api, SortUtil sortUtil) {
         super();
         this.googleMapApi = api;
+        this.sortUtil = sortUtil;
         this.disposables = new CompositeDisposable();
     }
 
@@ -39,6 +39,10 @@ class MainPresenter extends BasePresenter<MainInterface.View> implements
         this.nearbySearchDao = mockNearbyDao;
     }
 
+    void setSortUtil(SortUtil mockSortUtil) {
+        this.sortUtil = mockSortUtil;
+    }
+
     @Override
     public void onViewCreate() {
 
@@ -47,7 +51,7 @@ class MainPresenter extends BasePresenter<MainInterface.View> implements
     @Override
     public void onViewDestroy() {
         if (disposables != null) disposables.clear();
-        nearbySearchDao = null;
+        setNearbySearchDao(null);
     }
 
     @Override
@@ -69,7 +73,6 @@ class MainPresenter extends BasePresenter<MainInterface.View> implements
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribeWith(new BaseSubscriber<>(this)));
             } else {
-                Timber.e("searchNearby");
                 getView().loadMoreComplete();
             }
         }
@@ -77,11 +80,22 @@ class MainPresenter extends BasePresenter<MainInterface.View> implements
 
     @Override
     public List<ResultNearbySearchDao> sortListByName(List<ResultNearbySearchDao> list) {
-        if (!list.isEmpty() && getView() != null) {
-            Collections.sort(list, (o1, o2) -> o1.getName().compareTo(o2.getName()));
-            return list;
-        } else {
-            return new ArrayList<>();
+        return sortUtil.sortListByName(list);
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public void sortListByNameRx(List<ResultNearbySearchDao> list) {
+        if (getView() != null && !list.isEmpty()) {
+            getView().showProgressDialog();
+            sortUtil.sortListByRx(list)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(newList -> {
+                        nearbySearchDao.setList(newList);
+                        getView().hideProgressDialog();
+                        getView().sortSuccess(getNearbySearchDao());
+                    });
         }
     }
 
@@ -92,7 +106,6 @@ class MainPresenter extends BasePresenter<MainInterface.View> implements
                 setEnableNextPage(false);
                 getView().loadMoreComplete();
             } else {
-                nearbySearchDao = null;
                 setEnableNextPage(true);
                 insertNearbySearchList((NearbySearchDao) result);
             }
@@ -102,20 +115,23 @@ class MainPresenter extends BasePresenter<MainInterface.View> implements
     @Override
     public void onFailure(String message) {
         if (getView() != null) {
-            nearbySearchDao = null;
+            setNearbySearchDao(null);
             getView().loadMoreError();
             setEnableNextPage(false);
         }
     }
 
     private void insertNearbySearchList(NearbySearchDao result) {
-        nearbySearchDao = result;
-        getView().loadMoreSuccess(getNearbySearchDao().getList());
+        setNearbySearchDao(result);
+        getView().loadMoreSuccess(getNearbySearchDao());
     }
 
-    private String getTokenNextPage() {
-        if (nearbySearchDao == null || nearbySearchDao.getNextPageToken() == null) return "";
-        else return nearbySearchDao.getNextPageToken();
+    String getTokenNextPage() {
+        if (getNearbySearchDao() == null || getNearbySearchDao().getNextPageToken() == null) {
+            return "";
+        } else {
+            return getNearbySearchDao().getNextPageToken();
+        }
     }
 
     NearbySearchDao getNearbySearchDao() {

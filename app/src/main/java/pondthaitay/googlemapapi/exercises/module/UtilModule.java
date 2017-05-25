@@ -8,6 +8,7 @@ import dagger.Module;
 import dagger.Provides;
 import pondthaitay.googlemapapi.exercises.utils.DialogUtil;
 import pondthaitay.googlemapapi.exercises.utils.NetworkUtil;
+import pondthaitay.googlemapapi.exercises.utils.SortUtil;
 
 @Module
 public class UtilModule {
@@ -22,5 +23,11 @@ public class UtilModule {
     @Singleton
     NetworkUtil provideNetworkUtil(Context context) {
         return new NetworkUtil(context);
+    }
+
+    @Provides
+    @Singleton
+    SortUtil provideSortUtil() {
+        return new SortUtil();
     }
 }
