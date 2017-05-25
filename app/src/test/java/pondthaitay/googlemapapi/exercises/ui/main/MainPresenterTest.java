@@ -124,11 +124,32 @@ public class MainPresenterTest {
     }
 
     @Test
+    public void testSortListByNumber() throws Exception {
+        List<ResultNearbySearchDao> list = presenter.sortListByName(getListNumber());
+        String[] az = new String[6];
+        String[] azActuals = {"1", "2", "3", "4", "5", "6"};
+        for (int i = 0; i < list.size(); i++) {
+            az[i] = list.get(i).getName();
+        }
+
+        Assert.assertArrayEquals(az, azActuals);
+    }
+
+    @Test
+    public void testSortListByBoth() throws Exception {
+        List<ResultNearbySearchDao> list = presenter.sortListByName(getListBoth());
+        String[] az = new String[6];
+        String[] azActuals = {"1a", "4b", "4c", "f", "ก", "ค"};
+        for (int i = 0; i < list.size(); i++) {
+            az[i] = list.get(i).getName();
+        }
+
+        Assert.assertArrayEquals(az, azActuals);
+    }
+
+    @Test
     public void testSortListRxByNameEn() throws Exception {
-        NearbySearchDao mockResult = jsonUtil.getJsonToMock(
-                "nearby_search_success.json",
-                NearbySearchDao.class);
-        presenter.setNearbySearchDao(mockResult);
+        setUpNearbySearchResult();
         presenter.sortListByNameRx(getListNameTh());
         verify(mockView, times(1)).showProgressDialog();
         TestObserver<List<ResultNearbySearchDao>> testObserver = sortUtil.sortListByRx(getListNameEn()).test();
@@ -147,10 +168,7 @@ public class MainPresenterTest {
 
     @Test
     public void testSortListRxByNameTh() throws Exception {
-        NearbySearchDao mockResult = jsonUtil.getJsonToMock(
-                "nearby_search_success.json",
-                NearbySearchDao.class);
-        presenter.setNearbySearchDao(mockResult);
+        setUpNearbySearchResult();
         presenter.sortListByNameRx(getListNameTh());
         verify(mockView, times(1)).showProgressDialog();
         TestObserver<List<ResultNearbySearchDao>> testObserver = sortUtil.sortListByRx(getListNameTh()).test();
@@ -158,6 +176,44 @@ public class MainPresenterTest {
         testObserver.assertOf(list -> {
             String[] az = new String[6];
             String[] azActuals = {"y", "z", "ก", "ข", "ค", "ง"};
+            for (int i = 0; i < list.values().get(0).size(); i++) {
+                az[i] = list.values().get(0).get(i).getName();
+            }
+            verify(mockView, times(1)).hideProgressDialog();
+            verify(mockView, times(1)).sortSuccess(eq(presenter.getNearbySearchDao()));
+            Assert.assertArrayEquals(az, azActuals);
+        });
+    }
+
+    @Test
+    public void testSortListRxByNumber() throws Exception {
+        setUpNearbySearchResult();
+        presenter.sortListByNameRx(getListNameTh());
+        verify(mockView, times(1)).showProgressDialog();
+        TestObserver<List<ResultNearbySearchDao>> testObserver = sortUtil.sortListByRx(getListNumber()).test();
+        testObserver.assertComplete();
+        testObserver.assertOf(list -> {
+            String[] az = new String[6];
+            String[] azActuals = {"1", "2", "3", "4", "5", "6"};
+            for (int i = 0; i < list.values().get(0).size(); i++) {
+                az[i] = list.values().get(0).get(i).getName();
+            }
+            verify(mockView, times(1)).hideProgressDialog();
+            verify(mockView, times(1)).sortSuccess(eq(presenter.getNearbySearchDao()));
+            Assert.assertArrayEquals(az, azActuals);
+        });
+    }
+
+    @Test
+    public void testSortListRxByBoth() throws Exception {
+        setUpNearbySearchResult();
+        presenter.sortListByNameRx(getListNameTh());
+        verify(mockView, times(1)).showProgressDialog();
+        TestObserver<List<ResultNearbySearchDao>> testObserver = sortUtil.sortListByRx(getListBoth()).test();
+        testObserver.assertComplete();
+        testObserver.assertOf(list -> {
+            String[] az = new String[6];
+            String[] azActuals = {"1a", "4b", "4c", "f", "ก", "ค"};
             for (int i = 0; i < list.values().get(0).size(); i++) {
                 az[i] = list.values().get(0).get(i).getName();
             }
@@ -308,6 +364,13 @@ public class MainPresenterTest {
         presenter.setNearbySearchDao(nearbySearchDao);
     }
 
+    private void setUpNearbySearchResult() {
+        NearbySearchDao mockResult = jsonUtil.getJsonToMock(
+                "nearby_search_success.json",
+                NearbySearchDao.class);
+        presenter.setNearbySearchDao(mockResult);
+    }
+
     private List<ResultNearbySearchDao> getListNameEn() {
         List<ResultNearbySearchDao> list = new ArrayList<>();
 
@@ -363,6 +426,66 @@ public class MainPresenterTest {
 
         ResultNearbySearchDao dao5 = new ResultNearbySearchDao();
         dao5.setName("ง");
+        list.add(dao5);
+
+        return list;
+    }
+
+    private List<ResultNearbySearchDao> getListNumber() {
+        List<ResultNearbySearchDao> list = new ArrayList<>();
+
+        ResultNearbySearchDao dao = new ResultNearbySearchDao();
+        dao.setName("1");
+        list.add(dao);
+
+        ResultNearbySearchDao dao1 = new ResultNearbySearchDao();
+        dao1.setName("3");
+        list.add(dao1);
+
+        ResultNearbySearchDao dao2 = new ResultNearbySearchDao();
+        dao2.setName("5");
+        list.add(dao2);
+
+        ResultNearbySearchDao dao3 = new ResultNearbySearchDao();
+        dao3.setName("2");
+        list.add(dao3);
+
+        ResultNearbySearchDao dao4 = new ResultNearbySearchDao();
+        dao4.setName("4");
+        list.add(dao4);
+
+        ResultNearbySearchDao dao5 = new ResultNearbySearchDao();
+        dao5.setName("6");
+        list.add(dao5);
+
+        return list;
+    }
+
+    private List<ResultNearbySearchDao> getListBoth() {
+        List<ResultNearbySearchDao> list = new ArrayList<>();
+
+        ResultNearbySearchDao dao = new ResultNearbySearchDao();
+        dao.setName("1a");
+        list.add(dao);
+
+        ResultNearbySearchDao dao1 = new ResultNearbySearchDao();
+        dao1.setName("4c");
+        list.add(dao1);
+
+        ResultNearbySearchDao dao2 = new ResultNearbySearchDao();
+        dao2.setName("ก");
+        list.add(dao2);
+
+        ResultNearbySearchDao dao3 = new ResultNearbySearchDao();
+        dao3.setName("f");
+        list.add(dao3);
+
+        ResultNearbySearchDao dao4 = new ResultNearbySearchDao();
+        dao4.setName("4b");
+        list.add(dao4);
+
+        ResultNearbySearchDao dao5 = new ResultNearbySearchDao();
+        dao5.setName("ค");
         list.add(dao5);
 
         return list;

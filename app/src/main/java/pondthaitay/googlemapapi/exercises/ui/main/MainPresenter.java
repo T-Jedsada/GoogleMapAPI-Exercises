@@ -93,6 +93,7 @@ class MainPresenter extends BasePresenter<MainInterface.View> implements
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(newList -> {
                         nearbySearchDao.setList(newList);
+                        setNearbySearchDao(nearbySearchDao);
                         getView().hideProgressDialog();
                         getView().sortSuccess(getNearbySearchDao());
                     });
@@ -103,8 +104,7 @@ class MainPresenter extends BasePresenter<MainInterface.View> implements
     public <T> void onSuccess(T result) {
         if (getView() != null) {
             if (((NearbySearchDao) result).getList().isEmpty()) {
-                setEnableNextPage(false);
-                getView().loadMoreComplete();
+                setNearbySearchDaoLoadComplete(false);
             } else {
                 setEnableNextPage(true);
                 insertNearbySearchList((NearbySearchDao) result);
@@ -115,15 +115,24 @@ class MainPresenter extends BasePresenter<MainInterface.View> implements
     @Override
     public void onFailure(String message) {
         if (getView() != null) {
-            setNearbySearchDao(null);
-            getView().loadMoreError();
-            setEnableNextPage(false);
+            setNearbySearchDaoLoadComplete(true);
         }
     }
 
     private void insertNearbySearchList(NearbySearchDao result) {
         setNearbySearchDao(result);
         getView().loadMoreSuccess(getNearbySearchDao());
+    }
+
+    private void setNearbySearchDaoLoadComplete(boolean error) {
+        setEnableNextPage(false);
+        nearbySearchDao.setNextPageToken(null);
+        setNearbySearchDao(nearbySearchDao);
+        if (error) {
+            getView().loadMoreError();
+        } else {
+            getView().loadMoreComplete();
+        }
     }
 
     String getTokenNextPage() {

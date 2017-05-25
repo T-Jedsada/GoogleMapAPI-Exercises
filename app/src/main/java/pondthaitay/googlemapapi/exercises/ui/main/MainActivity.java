@@ -14,6 +14,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -22,10 +23,11 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.parceler.Parcels;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -180,9 +182,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements
 
     @Override
     public void onPlaceItemClick(ResultNearbySearchDao dao) {
-        LatLng latLng = new LatLng(dao.getGeometryDao().getLocation().getLat(),
-                dao.getGeometryDao().getLocation().getLng());
-        mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+        Toast.makeText(this, dao.getName(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -193,7 +193,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements
     @Override
     public void loadMoreSuccess(NearbySearchDao nearbySearchDao) {
         adapter.addNewPlace(nearbySearchDao.getList(), true);
-        setupMarker(adapter.getData());
+        setupNewMarker(nearbySearchDao.getList());
     }
 
     @Override
@@ -209,23 +209,32 @@ public class MainActivity extends BaseActivity<MainPresenter> implements
 
     private void setupMarker(NearbySearchDao nearbySearchDao) {
         if (nearbySearchDao != null) {
-            mGoogleMap.clear();
-            int index = 0;
             LatLngBounds.Builder builder = new LatLngBounds.Builder();
             for (ResultNearbySearchDao dao : nearbySearchDao.getList()) {
                 LatLng latlng = new LatLng(dao.getGeometryDao().getLocation().getLat(),
                         dao.getGeometryDao().getLocation().getLng());
                 MarkerOptions markerOptions;
                 markerOptions = new MarkerOptions().position(latlng)
-                        .icon(index <= 20 ? BitmapDescriptorFactory.defaultMarker() :
-                                BitmapDescriptorFactory.fromBitmap(createDot()));
-                Marker marker = mGoogleMap.addMarker(markerOptions);
-                marker.setTag(index);
+                        .icon(BitmapDescriptorFactory.defaultMarker());
+                mGoogleMap.addMarker(markerOptions);
                 builder.include(markerOptions.getPosition());
-                index++;
             }
             mGoogleMap.setOnMapLoadedCallback(() ->
                     mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(builder.build(), 50)));
+        }
+    }
+
+    private void setupNewMarker(List<ResultNearbySearchDao> list) {
+        if (mGoogleMap != null) {
+            for (ResultNearbySearchDao dao : list) {
+                LatLng latlng = new LatLng(dao.getGeometryDao().getLocation().getLat(),
+                        dao.getGeometryDao().getLocation().getLng());
+                MarkerOptions markerOptions;
+                markerOptions = new MarkerOptions().position(latlng)
+                        .icon(createDot() == null ? BitmapDescriptorFactory.defaultMarker() :
+                                BitmapDescriptorFactory.fromBitmap(createDot()));
+                mGoogleMap.addMarker(markerOptions);
+            }
         }
     }
 
