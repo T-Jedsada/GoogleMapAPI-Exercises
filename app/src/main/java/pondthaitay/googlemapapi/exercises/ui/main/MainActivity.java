@@ -1,8 +1,13 @@
 package pondthaitay.googlemapapi.exercises.ui.main;
 
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -212,7 +217,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements
                         dao.getGeometryDao().getLocation().getLng());
                 MarkerOptions markerOptions;
                 markerOptions = new MarkerOptions().position(latlng)
-                        .icon(BitmapDescriptorFactory.defaultMarker());
+                        .icon(index <= 20 ? BitmapDescriptorFactory.defaultMarker() :
+                                BitmapDescriptorFactory.fromBitmap(createDot()));
                 Marker marker = mGoogleMap.addMarker(markerOptions);
                 marker.setTag(index);
                 builder.include(markerOptions.getPosition());
@@ -227,5 +233,19 @@ public class MainActivity extends BaseActivity<MainPresenter> implements
         tvShowList.setText(state ? R.string.show_list : R.string.sort_by_name);
         ivSort.setEnabled(!state);
         ivSort.setAlpha(state ? 0f : 1f);
+    }
+
+    @Nullable
+    private Bitmap createDot() {
+        int px = getResources().getDimensionPixelSize(R.dimen.map_dot_marker_size);
+        Bitmap mDotMarkerBitmap = Bitmap.createBitmap(px, px, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(mDotMarkerBitmap);
+        Drawable shape = ContextCompat.getDrawable(this, R.drawable.oval_pin);
+        if (shape != null) {
+            shape.setBounds(0, 0, mDotMarkerBitmap.getWidth(), mDotMarkerBitmap.getHeight());
+            shape.draw(canvas);
+            return mDotMarkerBitmap;
+        }
+        return null;
     }
 }
